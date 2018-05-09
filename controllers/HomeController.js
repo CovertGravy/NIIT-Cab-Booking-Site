@@ -34,35 +34,59 @@ angular.module('myApp').controller('HomeController', function ($scope) {
 
       let map = new google.maps.Map(canvas, options);
       let geocoder = new google.maps.Geocoder;
-      let bounds = new google.maps.LatLngBounds();         
+      let markerArray = [];
 
       let search = document.getElementById('search');
       let autocomplete = new google.maps.places.Autocomplete(search);
 
       autocomplete.bindTo('bounds', map);
 
+      let destination = new google.maps.Marker({
+        // position: place.geometry.location,
+        map: map
+      });
+      
+      // ------ function that loops through marker array to fit bounds ---------
+      let boundf = () => {
+        let bounds = new google.maps.LatLngBounds();
+        markerArray.forEach(element => {
+          let bound =  new google.maps.LatLng(element.position.lat(), element.position.lng());
+          bounds.extend(bound);
+        });
+        map.fitBounds(bounds);
+        map.panToBounds(bounds);
+        
+      }
+
+      
       autocomplete.addListener('place_changed', function(){
         let place = autocomplete.getPlace();
-
+        destination.setVisible(false);
+        
+        
         if(!place.geometry) {
           window.alert(`No details available for ${place.name}`);
         }
 
         if(place.geometry.viewport) {
-          map.fitBounds(place.geometry.viewport);
+          // map.fitBounds(place.geometry.viewport);
           //map.setCenter(place.geometry.location);
           console.log(place);
 
-          let destination = new google.maps.Marker({
-            position: place.geometry.location,
-            map: map
-          });
-          let bound2 = new google.maps.LatLng(destination.position.lat(), destination.position.lng());
+          destination.setPosition(place.geometry.location);
+          destination.setVisible(true);
+          if(markerArray.length >= 2) {
+            markerArray.length = 1;
+          }
+          markerArray.push(destination);
+          console.log(markerArray);
+          
+          // let bound1 = new google.maps.LatLng(destination.position.lat(), destination.position.lng());
+          boundf();
 
-          bounds.extend(bound2);
+          // bounds.extend(bound1);
 
-          map.fitBounds(bounds);
-          map.panToBounds(bounds);
+          
           
         }
       });
@@ -73,8 +97,10 @@ angular.module('myApp').controller('HomeController', function ($scope) {
         draggable: true
       });
 
-      let bound1 = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
-      bounds.extend(bound1);
+      markerArray.push(marker);
+
+      // let bound2 = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+      // bounds.extend(bound2);
 
       // reverse geocoder for current navigator position
       geocoder.geocode({'location': coords}, function(results, status){
