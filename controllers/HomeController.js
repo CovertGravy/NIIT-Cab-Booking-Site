@@ -74,6 +74,7 @@ angular.module('myApp').controller('HomeController', function ($scope) {
           }, callback);
 
           function callback(response, status) {
+
             if (status === 'OK') {
               let origins = response.originAddresses;
               let destinations = response.destinationAddresses;
@@ -88,12 +89,12 @@ angular.module('myApp').controller('HomeController', function ($scope) {
                   let from = origins[i];
                   let to = destinations[i];
 
-                  console.log({ distance, duration });
-
+                  document.getElementById('distance').innerText = distance;
                 }
               }
             }
           }
+
 
           //----------- Directions Route ----------------
           // let directionsService = new google.maps.DirectionsService();
@@ -109,7 +110,7 @@ angular.module('myApp').controller('HomeController', function ($scope) {
 
             directionsService.route(request, function (response, status) {
               if (status === 'OK') {
-                
+
                 directionsDisplay.setDirections(response);
                 markerArray.forEach(element => {
                   element.setVisible(false);
