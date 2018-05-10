@@ -21,10 +21,11 @@ angular.module('myApp').controller('HomeController', function ($scope) {
     // });
 
     // ----------------- naviagtor GPS ----------------------
-    navigator.geolocation.watchPosition(pos, err);
+    let id = navigator.geolocation.watchPosition(pos, err);
 
     function pos(position) {
       console.log(position.coords.latitude);
+      navigator.geolocation.clearWatch(id);
       let coords = { lat: position.coords.latitude, lng: position.coords.longitude };
       let canvas = document.getElementById('map');
       let options = {
@@ -89,7 +90,10 @@ angular.module('myApp').controller('HomeController', function ($scope) {
                   let from = origins[i];
                   let to = destinations[i];
 
-                  document.getElementById('distance').innerText = distance;
+                  document.getElementById('distance').innerHTML = `
+                  <p>Distance <span class="blue badge white-text">${distance}</span></p>
+                  <p>Duration <span class="red badge white-text">${duration}</span></p>  
+                  `;
                 }
               }
             }
