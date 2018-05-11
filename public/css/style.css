@@ -1,9 +1,0 @@
-#map{
-  position: relative;
-  width: 100%;
-  height: 400px;
-}
-
-#distance{
-  transition: 2s ease-in;
-}
