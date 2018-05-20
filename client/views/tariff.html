@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12 m12">
+      <h4>Tariff Plans
+        <button ng-click="showform()" class="btn">Add</button>
+      </h4>
+
+      <!-- window modal  -->
+      <div ng-show="addwindow" class="col s12 white-text card black">
+        <form>
+          <h5>Add a new tariff plan
+            <span ng-click="closeform()" class="right" style="cursor: pointer">
+              <i class="material-icons">close</i>
+            </span>
+          </h5>
+          <div class="input-field col s12">
+            <select ng-model="newtariff.cabType">
+              <option value="" disabled selected>Choose Cab Type</option>
+              <option value="Micro">Micro</option>
+              <option value="Mini">Mini</option>
+              <option value="Prime Sedan">Prime Sedan</option>
+              <option value="Prime SUV">Prime SUV</option>
+            </select>
+          </div>
+          <div class="input-field col s6">
+            <input type="number" />
+            <label>Normal Hour Rate</label>
+          </div>
+          <div class="input-field col s6">
+            <input type="number" />
+            <label>Peak Hour Rate</label>
+          </div>
+          <div class="input-field col s6">
+            <input type="time" />
+            <label>Peak Hour(start)</label>
+          </div>
+          <div class="input-field col s6">
+            <input type="time" />
+            <label>Peak Hour(end)</label>
+          </div>
+          <div class="input-field col s6 offset-s6">
+            <button ng-click="saveform()" class="btn yellow btn-small black-text right">save</button>
+            <!-- <input type="submit" value="close" class="btn btn-small white black-text right" /> -->
+          </div>
+
+        </form>
+      </div>
+
+      <table>
+        <thead>
+          <th>Cab Type</th>
+          <th>Normal Hour Rate</th>
+          <th>Peak Hour Rate</th>
+          <th>Peak Hours</th>
+          <th>Actions</th>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat="item in items">
+            <td>{{item}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

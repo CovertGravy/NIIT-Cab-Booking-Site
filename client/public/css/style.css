@@ -1,5 +1,26 @@
-#map{
+/* home.html styles */
+#map {
   position: relative;
   width: 100%;
   height: 400px;
+  margin-bottom: 10px;
 }
+
+.details {
+  margin-top: 5px !important;
+}
+
+.home-info {
+  height: 231px;
+  margin-bottom: 40px;
+}
+
+textarea.materialize-textarea {
+  box-sizing: unset;
+}
+
+.card-content {
+  padding: 20px !important;
+}
+
+/* tariff.html styles */

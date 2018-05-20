@@ -1,7 +1,5 @@
-angular.module('myApp').controller('HomeController', function ($scope) {
-
-  $scope.initMap = function () {
-
+angular.module("myApp").controller("HomeController", function($scope) {
+  $scope.initMap = function() {
     // ------------ basic map render ---------------
     // let coords = { lat: 28.524579, lng: 77.206615 };
     // let canvas = document.getElementById('map');
@@ -26,15 +24,18 @@ angular.module('myApp').controller('HomeController', function ($scope) {
     function pos(position) {
       console.log(position.coords.latitude);
       navigator.geolocation.clearWatch(id);
-      let coords = { lat: position.coords.latitude, lng: position.coords.longitude };
-      let canvas = document.getElementById('map');
+      let coords = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      let canvas = document.getElementById("map");
       let options = {
-        zoom: 17,
+        zoom: 16,
         center: coords
       };
 
       let map = new google.maps.Map(canvas, options);
-      let geocoder = new google.maps.Geocoder;
+      let geocoder = new google.maps.Geocoder();
       let markerArray = [];
 
       // services
@@ -42,11 +43,10 @@ angular.module('myApp').controller('HomeController', function ($scope) {
       let directionsService = new google.maps.DirectionsService();
       let directionsDisplay = new google.maps.DirectionsRenderer();
 
-
-      let search = document.getElementById('search');
+      let search = document.getElementById("search");
       let autocomplete = new google.maps.places.Autocomplete(search);
 
-      autocomplete.bindTo('bounds', map);
+      autocomplete.bindTo("bounds", map);
 
       let destination = new google.maps.Marker({
         // position: place.geometry.location,
@@ -57,26 +57,37 @@ angular.module('myApp').controller('HomeController', function ($scope) {
       let boundf = () => {
         let bounds = new google.maps.LatLngBounds();
         markerArray.forEach(element => {
-          let bound = new google.maps.LatLng(element.position.lat(), element.position.lng());
+          let bound = new google.maps.LatLng(
+            element.position.lat(),
+            element.position.lng()
+          );
           bounds.extend(bound);
         });
         map.fitBounds(bounds);
         map.panToBounds(bounds);
 
         if (markerArray[1]) {
-          let origin = new google.maps.LatLng(markerArray[0].position.lat(), markerArray[0].position.lng());
-          let dest = new google.maps.LatLng(markerArray[1].position.lat(), markerArray[1].position.lng());
+          let origin = new google.maps.LatLng(
+            markerArray[0].position.lat(),
+            markerArray[0].position.lng()
+          );
+          let dest = new google.maps.LatLng(
+            markerArray[1].position.lat(),
+            markerArray[1].position.lng()
+          );
 
           // let service = new google.maps.DistanceMatrixService();
-          service.getDistanceMatrix({
-            origins: [origin],
-            destinations: [dest],
-            travelMode: 'DRIVING'
-          }, callback);
+          service.getDistanceMatrix(
+            {
+              origins: [origin],
+              destinations: [dest],
+              travelMode: "DRIVING"
+            },
+            callback
+          );
 
           function callback(response, status) {
-
-            if (status === 'OK') {
+            if (status === "OK") {
               let origins = response.originAddresses;
               let destinations = response.destinationAddresses;
 
@@ -90,15 +101,12 @@ angular.module('myApp').controller('HomeController', function ($scope) {
                   let from = origins[i];
                   let to = destinations[i];
 
-                  document.getElementById('distance').innerHTML = `
-                  <p>Distance <span class="blue badge white-text">${distance}</span></p>
-                  <p>Duration <span class="red badge white-text">${duration}</span></p>  
-                  `;
+                  document.getElementById("distance").innerText = `${distance}`;
+                  document.getElementById("duration").innerText = `${duration}`;
                 }
               }
             }
           }
-
 
           //----------- Directions Route ----------------
           // let directionsService = new google.maps.DirectionsService();
@@ -109,12 +117,11 @@ angular.module('myApp').controller('HomeController', function ($scope) {
             let request = {
               origin: origin,
               destination: dest,
-              travelMode: 'DRIVING'
+              travelMode: "DRIVING"
             };
 
-            directionsService.route(request, function (response, status) {
-              if (status === 'OK') {
-
+            directionsService.route(request, function(response, status) {
+              if (status === "OK") {
                 directionsDisplay.setDirections(response);
                 markerArray.forEach(element => {
                   element.setVisible(false);
@@ -125,20 +132,17 @@ angular.module('myApp').controller('HomeController', function ($scope) {
 
           calcRoute();
         }
-      }
+      };
 
-
-      autocomplete.addListener('place_changed', function () {
+      autocomplete.addListener("place_changed", function() {
         let place = autocomplete.getPlace();
         destination.setVisible(false);
-
 
         if (!place.geometry) {
           window.alert(`No details available for ${place.name}`);
         }
 
         if (place.geometry.viewport) {
-
           console.log(place);
 
           destination.setPosition(place.geometry.location);
@@ -153,9 +157,6 @@ angular.module('myApp').controller('HomeController', function ($scope) {
           boundf();
 
           // bounds.extend(bound1);
-
-
-
         }
       });
 
@@ -171,15 +172,16 @@ angular.module('myApp').controller('HomeController', function ($scope) {
       // bounds.extend(bound2);
 
       // reverse geocoder for current navigator position
-      geocoder.geocode({ 'location': coords }, function (results, status) {
-        if (status === 'OK') {
+      geocoder.geocode({ location: coords }, function(results, status) {
+        if (status === "OK") {
           if (results[0]) {
-            document.getElementById('pos-input').value = results[0].formatted_address;
+            document.getElementById("pos-input").value =
+              results[0].formatted_address;
             // materialize textarea resize on init
-            M.textareaAutoResize(document.getElementById('pos-input'));
+            M.textareaAutoResize(document.getElementById("pos-input"));
             console.log(results[0]);
           } else {
-            window.alert('No results found!');
+            window.alert("No results found!");
           }
         } else {
           window.alert(`Geocoder failed due to ${status}`);
@@ -187,18 +189,19 @@ angular.module('myApp').controller('HomeController', function ($scope) {
       });
 
       // dragend event with reverse geocoder
-      google.maps.event.addListener(marker, 'dragend', function (e) {
+      google.maps.event.addListener(marker, "dragend", function(e) {
         let newPos = {
           lat: e.latLng.lat(),
           lng: e.latLng.lng()
         };
-        geocoder.geocode({ 'location': newPos }, function (results, status) {
-          if (status === 'OK') {
+        geocoder.geocode({ location: newPos }, function(results, status) {
+          if (status === "OK") {
             if (results[0]) {
-              document.getElementById('pos-input').value = results[0].formatted_address;
+              document.getElementById("pos-input").value =
+                results[0].formatted_address;
               console.log(results[0]);
             } else {
-              window.alert('No results found!');
+              window.alert("No results found!");
             }
           } else {
             window.alert(`Geocoder failed due to ${status}`);
@@ -209,8 +212,7 @@ angular.module('myApp').controller('HomeController', function ($scope) {
     }
 
     function err() {
-      window.alert('failed');
+      window.alert("failed");
     }
-  }
-
+  };
 });

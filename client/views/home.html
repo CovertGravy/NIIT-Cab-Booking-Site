@@ -1,16 +1,34 @@
 <div class="container">
   <div class="row">
-    <div class="col s7">
+    <div class="col s12 m7 card grey lighten-1">
       <h3>Google Map</h3>
       <div id="map" class="z-depth-1" ng-init="initMap()"></div>
     </div>
-    <div class="col s5">
-      <h3>Current Position</h3>
-      <textarea disabled id="pos-input" class="materialize-textarea"></textarea>
+    <div class="col s12 m5">
+      <div class="home-info card black">
+        <div class="card-content">
+          <h4 class="white-text">Current Position</h4>
+          <div class="input-field">
+            <textarea disabled id="pos-input" class="materialize-textarea white-text"></textarea>
+          </div>
+        </div>
+      </div>
 
-      <h3>Destination</h3>
-      <input type="text" id="search" class="input-field"/>
-      <div id="distance"></div>
+      <div class="home-info card black">
+        <div class="card-content white-text">
+          <h4>Destination</h4>
+          <input type="text" id="search" class="input-field white-text" />
+          <div>
+            <p class="details">Distance
+              <span id="distance" class="blue badge white-text">N/A</span>
+            </p>
+            <p class="details">Duration
+              <span id="duration" class="red badge white-text">N/A</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
       <!-- <p>Distance <span id="distance" class="blue badge white-text"></span></p> -->
     </div>
   </div>
