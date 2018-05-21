@@ -6,15 +6,15 @@
       </h4>
 
       <!-- window modal  -->
-      <div ng-show="addwindow" class="col s12 white-text card black">
-        <form>
+      <div ng-show="addwindow" class="col s12 card black">
+        <form class="tariff-form white-text">
           <h5>Add a new tariff plan
             <span ng-click="closeform()" class="right" style="cursor: pointer">
               <i class="material-icons">close</i>
             </span>
           </h5>
           <div class="input-field col s12">
-            <select ng-model="newtariff.cabType">
+            <select>
               <option value="" disabled selected>Choose Cab Type</option>
               <option value="Micro">Micro</option>
               <option value="Mini">Mini</option>
@@ -23,19 +23,19 @@
             </select>
           </div>
           <div class="input-field col s6">
-            <input type="number" />
+            <input type="number">
             <label>Normal Hour Rate</label>
           </div>
           <div class="input-field col s6">
-            <input type="number" />
+            <input type="number">
             <label>Peak Hour Rate</label>
           </div>
           <div class="input-field col s6">
-            <input type="time" />
+            <input type="time">
             <label>Peak Hour(start)</label>
           </div>
           <div class="input-field col s6">
-            <input type="time" />
+            <input type="time">
             <label>Peak Hour(end)</label>
           </div>
           <div class="input-field col s6 offset-s6">

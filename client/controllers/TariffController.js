@@ -1,16 +1,16 @@
 angular.module("myApp").controller("TariffController", function($scope) {
-  const elems = document.querySelectorAll("select");
+  const elems = document.querySelector("select");
   const options = {
     classes: "",
     dropdownOptions: {}
   };
   const instances = M.FormSelect.init(elems, options);
   $scope.newtariff = {
-    // cabType: null,
-    // normalRate: null,
-    // peakRate: null,
-    // peakHourStart: null,
-    // peakHourEnd: null
+    cabType: null,
+    normalRate: null,
+    peakRate: null,
+    peakHourStart: null,
+    peakHourEnd: null
   };
   $scope.addwindow = false;
 
@@ -23,7 +23,8 @@ angular.module("myApp").controller("TariffController", function($scope) {
   };
 
   $scope.saveform = function() {
-    let vals = document.querySelector("select").value;
+    let cabType = document.querySelector("select").value;
+    $scope.newtariff.cabType = cabType;
     console.log($scope.newtariff, vals);
   };
 });
