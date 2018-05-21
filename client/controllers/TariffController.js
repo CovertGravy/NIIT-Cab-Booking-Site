@@ -25,6 +25,6 @@ angular.module("myApp").controller("TariffController", function($scope) {
   $scope.saveform = function() {
     let cabType = document.querySelector("select").value;
     $scope.newtariff.cabType = cabType;
-    console.log($scope.newtariff, vals);
+    console.log($scope.newtariff);
   };
 });
