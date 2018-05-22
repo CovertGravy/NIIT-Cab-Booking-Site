@@ -22,7 +22,8 @@ app.use(express.static(path.join(__dirname, "/client")));
 app.use("/", routes);
 
 const server = http.createServer(app);
+
+reload(app);
 server.listen(3000, (req, res) => {
   console.log("Server is running ...");
 });
-reload(app);

@@ -6,7 +6,7 @@
       </h4>
 
       <!-- window modal  -->
-      <div ng-show="addwindow" class="col s12 card black">
+      <div ng-show="addwindow" class="col s12 card black animated infinite jackInTheBox">
         <form class="tariff-form white-text">
           <h5>Add a new tariff plan
             <span ng-click="closeform()" class="right" style="cursor: pointer">
@@ -14,32 +14,33 @@
             </span>
           </h5>
           <div class="input-field col s12">
-            <select>
-              <option value="" disabled selected>Choose Cab Type</option>
+            <select id="cabType" required>
+              <!-- <option disabled selected>Choose Cab Type</option> -->
               <option value="Micro">Micro</option>
               <option value="Mini">Mini</option>
               <option value="Prime Sedan">Prime Sedan</option>
               <option value="Prime SUV">Prime SUV</option>
             </select>
+            <label>Choose Cab Type</label>
           </div>
           <div class="input-field col s6">
-            <input type="number">
+            <input id="normalRate" type="number" required>
             <label>Normal Hour Rate</label>
           </div>
           <div class="input-field col s6">
-            <input type="number">
+            <input id="peakRate" type="number" required>
             <label>Peak Hour Rate</label>
           </div>
           <div class="input-field col s6">
-            <input type="time">
+            <input id="peakHourStart" type="time" required>
             <label>Peak Hour(start)</label>
           </div>
           <div class="input-field col s6">
-            <input type="time">
+            <input id="peakHourEnd" type="time" required>
             <label>Peak Hour(end)</label>
           </div>
           <div class="input-field col s6 offset-s6">
-            <button ng-click="saveform()" class="btn yellow btn-small black-text right">save</button>
+            <button type="button" ng-click="saveform()" id="saveform" class="btn yellow btn-small black-text right">save</button>
             <!-- <input type="submit" value="close" class="btn btn-small white black-text right" /> -->
           </div>
 
@@ -56,8 +57,12 @@
         </thead>
 
         <tbody>
-          <tr ng-repeat="item in items">
-            <td>{{item}}</td>
+          <tr ng-repeat="tariff in tariffs">
+            <td>{{tariff.cabType}}</td>
+            <td>{{tariff.normalRate}}</td>
+            <td>{{tariff.peakRate}}</td>
+            <td>{{tariff.peakHourStart}} - {{tariff.peakHourEnd}}</td>
+            <td></td>
           </tr>
         </tbody>
       </table>

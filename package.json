@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -e node server.js"
+    "start": "node ."
   },
   "repository": {
     "type": "git",
@@ -18,9 +18,12 @@
   },
   "homepage": "https://github.com/CovertGravy/GoogleMap#readme",
   "dependencies": {
+    "animate.css": "^3.6.1",
     "express": "^4.16.3",
     "mongoose": "^5.1.0",
-    "morgan": "^1.9.0",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
     "reload": "^2.2.2"
   }
 }
