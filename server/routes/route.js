@@ -33,4 +33,56 @@ router.get("/showtariff", (req, res) => {
   });
 });
 
+router.get("/showtariff/:id", (req, res) => {
+  tariff.find(
+    {
+      _id: req.params.id
+    },
+    (err, data) => {
+      if (err) {
+        throw err;
+      } else {
+        res.json(data);
+      }
+    }
+  );
+});
+
+router.put("/updatetariff/:id", (req, res) => {
+  tariff.findOneAndUpdate(
+    {
+      _id: req.params.id
+    },
+    req.body,
+    (err, doc) => {
+      if (err) {
+        throw err;
+      } else {
+        res.json({
+          success: true,
+          message: "Tariff updated successfully"
+        });
+      }
+    }
+  );
+});
+
+router.delete("/deletetariff/:id", (req, res) => {
+  tariff.findOneAndRemove(
+    {
+      _id: req.params.id
+    },
+    (err, doc) => {
+      if (err) {
+        throw err;
+      } else {
+        res.json({
+          success: true,
+          message: "Record Successfully Deleted"
+        });
+      }
+    }
+  );
+});
+
 module.exports = router;

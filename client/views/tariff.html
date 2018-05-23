@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col s12 m12">
       <h4>Tariff Plans
-        <button ng-click="showform()" class="btn">Add</button>
+        <button ng-show="!addwindow" ng-click="showform()" class="btn">Add</button>
       </h4>
 
       <!-- window modal  -->
@@ -21,27 +21,27 @@
               <option value="Prime Sedan">Prime Sedan</option>
               <option value="Prime SUV">Prime SUV</option>
             </select>
-            <label>Choose Cab Type</label>
+            <label for="cabType">Choose Cab Type</label>
           </div>
           <div class="input-field col s6">
             <input id="normalRate" type="number" required>
-            <label>Normal Hour Rate</label>
+            <label for="normalRate">Normal Hour Rate</label>
           </div>
           <div class="input-field col s6">
             <input id="peakRate" type="number" required>
-            <label>Peak Hour Rate</label>
+            <label for="peakRate">Peak Hour Rate</label>
           </div>
           <div class="input-field col s6">
             <input id="peakHourStart" type="time" required>
-            <label>Peak Hour(start)</label>
+            <label for="peakHourStart">Peak Hour(start)</label>
           </div>
           <div class="input-field col s6">
             <input id="peakHourEnd" type="time" required>
-            <label>Peak Hour(end)</label>
+            <label for="peakHourEnd">Peak Hour(end)</label>
           </div>
           <div class="input-field col s6 offset-s6">
             <button type="button" ng-click="saveform()" id="saveform" class="btn yellow btn-small black-text right">save</button>
-            <!-- <input type="submit" value="close" class="btn btn-small white black-text right" /> -->
+            <!-- <input type="reset" value="Reset" class="btn btn-small white black-text right" /> -->
           </div>
 
         </form>
@@ -62,7 +62,14 @@
             <td>{{tariff.normalRate}}</td>
             <td>{{tariff.peakRate}}</td>
             <td>{{tariff.peakHourStart}} - {{tariff.peakHourEnd}}</td>
-            <td></td>
+            <td>
+              <span ng-click="deletetariff(tariff._id)" style="cursor: pointer">
+                <i class="material-icons">delete_forever</i>
+              </span>
+              <span ng-click="showtariff(tariff._id)" style="cursor: pointer">
+                <i class="material-icons">menu</i>
+              </span>
+            </td>
           </tr>
         </tbody>
       </table>
