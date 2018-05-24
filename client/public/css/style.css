@@ -24,8 +24,12 @@ textarea.materialize-textarea {
 }
 
 /* tariff.html styles */
-.tariff-form .input-field input[type="number"],
-.tariff-form .input-field input[type="time"],
-.tariff-form .input-field .select-wrapper input.select-dropdown {
+.tariff-form input {
+  color: white;
+}
+
+/* driver.html styles */
+.driver-form input,
+textarea {
   color: white;
 }

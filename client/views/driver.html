@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="col s12 m12">
-      <h4>Driver
+      <h4>Drivers
         <button ng-show="!addwindow" ng-click="showform()" class="btn">Add</button>
       </h4>
 
       <div ng-show="addwindow" class="col s12 card black">
-        <form class="tariff-form white-text">
+        <form class="driver-form white-text">
           <h5>Driver Details
             <span ng-click="closeform()" class="right" style="cursor: pointer">
               <i class="material-icons">close</i>
@@ -36,8 +36,9 @@
             <input id="email" type="email" class="validate">
             <label for="email">Email Address</label>
           </div>
-          <h5>Cab Details</h5>
+          <!-- <h5>Cab Details</h5> -->
           <div class="input-field col s6">
+            <i class="material-icons prefix">local_taxi</i>
             <select id="driverCab">
               <option value="" disabled selected>Choose Cab Type</option>
               <option value="Micro">Micro</option>
@@ -45,19 +46,21 @@
               <option value="Prime Sedan">Prime Sedan</option>
               <option value="Prime SUV">Prime SUV</option>
             </select>
-            <label for="driverCab">Choose Cab Type</label>
+            <!-- <label for="driverCab">Choose Cab Type</label> -->
           </div>
           <div class="input-field col s6">
-            <input id="secondname" type="text" class="validate">
-            <label for="secondname">Second Name</label>
+            <input id="cabMake" type="text" class="validate">
+            <label for="cabMake">Make</label>
           </div>
           <div class="input-field col s6">
-            <input id="secondname" type="text" class="validate">
-            <label for="secondname">Second Name</label>
+            <i class="material-icons prefix">branding_watermark</i>
+            <input id="cabModel" type="text" class="validate">
+            <label for="cabModel">Model</label>
           </div>
           <div class="input-field col s6">
-            <input id="secondname" type="text" class="validate">
-            <label for="secondname">Second Name</label>
+            <i class="material-icons prefix">assignment</i>
+            <input id="cabRegister" type="text" class="validate">
+            <label for="cabRegister">Registeration No.</label>
           </div>
 
           <div class="input-field col s6 offset-s6">

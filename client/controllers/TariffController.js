@@ -45,25 +45,23 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
 
   $scope.closeform = function() {
     $scope.addwindow = false;
+    if ($scope.tariffUpdate) {
+      $scope.tariffUpdate = false;
+      let div = document.querySelector("#selectCab");
+      div.className = "input-field col s12";
+    }
+
     document.querySelector(".tariff-form").reset();
   };
 
   $scope.saveform = function() {
     console.log($scope.newtariff);
-    let cabType = document.querySelector("#cabType").value;
-    let normalRate = document.querySelector("#normalRate").value;
-    let peakRate = document.querySelector("#peakRate").value;
-    let peakHourEnd = document.querySelector("#peakHourEnd").value;
-    let peakHourStart = document.querySelector("#peakHourStart").value;
-    $scope.newtariff.cabType = cabType;
-    $scope.newtariff.normalRate = normalRate;
-    $scope.newtariff.peakRate = peakRate;
-    $scope.newtariff.peakHourEnd = peakHourEnd;
-    $scope.newtariff.peakHourStart = peakHourStart;
 
     for (const key in $scope.newtariff) {
       if ($scope.newtariff.hasOwnProperty(key)) {
-        $scope.newtariff[key] = $scope.newtariff[key].toString();
+        $scope.newtariff[key] = document
+          .querySelector(`#${key}`)
+          .value.toString();
       }
     }
     console.log($scope.newtariff);
@@ -85,29 +83,34 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
 
   $scope.showtariff = tariffid => {
     if (tariffid) {
+      $scope.showform();
+
       $http.get(`/showtariff/${tariffid}`).then(res => {
         console.log(res.data);
         let data = res.data[0];
         console.log(data);
         for (const key in data) {
-          if (data.hasOwnProperty(key) && key != "__v" && key != "_id") {
+          if (
+            data.hasOwnProperty(key) &&
+            key != "__v" &&
+            key != "_id" &&
+            key != "cabType"
+          ) {
             document.querySelector(`#${key}`).value = data[key];
+            document.querySelector(`label[for=${key}]`).className = "active";
             let val = document.querySelector(`#${key}`).value;
             console.log(`${key}: ${val}`);
-
-            if (key != "cabType") {
-              document.querySelector(`label[for=${key}]`).className = "active";
-            } else {
-              let options = document.querySelector(`#${key}`).value;
-              let selected = document.querySelector(".selected");
-              // selected.classList.remove("selected");
-              console.log(options, selected);
-              // document.querySelector(`#${key}`).change();
-            }
+          } else if (key == "cabType") {
+            let div = document.querySelector("#selectCab");
+            div.className = "input-field col s6";
+            $scope.cabDisplay = data[key];
+            $scope.tariffUpdate = true;
+          } else if (key == "_id") {
+            $scope.updateID = data[key];
           }
         }
         // document.querySelector(``)
-        $scope.showform();
+        // $scope.showform();
       });
     } else {
       $http.get("/showtariff").then(res => {
@@ -118,9 +121,18 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
   };
 
   $scope.updatetariff = tariffid => {
-    $http
-      .put(`/updatetariff/${tariffid}`, $scope.newtariff)
-      .then(response => alert("Tariff updated!"));
+    for (const key in $scope.newtariff) {
+      if ($scope.newtariff.hasOwnProperty(key)) {
+        $scope.newtariff[key] = document
+          .querySelector(`#${key}`)
+          .value.toString();
+      }
+    }
+    console.log($scope.newtariff);
+
+    $http.put(`/updatetariff/${tariffid}`, $scope.newtariff).then(response => {
+      alert("Tariff updated!");
+    });
   };
 
   $scope.deletetariff = tariffid => {

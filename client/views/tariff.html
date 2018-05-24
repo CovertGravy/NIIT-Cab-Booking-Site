@@ -13,7 +13,11 @@
               <i class="material-icons">close</i>
             </span>
           </h5>
-          <div class="input-field col s12">
+          <div ng-show="tariffUpdate" class="col s6">
+            <label for="cabDisplay">Current Cab Type</label>
+            <input id="cabDisplay" value="{{cabDisplay}}" type="text" disabled>
+          </div>
+          <div id="selectCab" class="input-field col s12">
             <select id="cabType">
               <option value="" disabled selected>Choose Cab Type</option>
               <option value="Micro">Micro</option>
@@ -40,7 +44,7 @@
             <label for="peakHourEnd">Peak Hour(end)</label>
           </div>
           <div class="input-field col s6 offset-s6">
-            <button type="button" ng-click="saveform()" id="saveform" class="btn yellow btn-small black-text right">save</button>
+            <button type="button" ng-click="tariffUpdate ? updatetariff(updateID) : saveform()" id="saveform" class="btn yellow btn-small black-text right">save</button>
             <!-- <input type="reset" value="Reset" class="btn btn-small white black-text right" /> -->
           </div>
 
