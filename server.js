@@ -23,7 +23,7 @@ app.use("/", routes);
 
 const server = http.createServer(app);
 
-reload(app);
+// reload(app);
 server.listen(3000, (req, res) => {
   console.log("Server is running ...");
 });

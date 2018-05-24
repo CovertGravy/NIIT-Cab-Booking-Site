@@ -26,13 +26,18 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
     btnSave.disabled = true;
 
     let inputs = document.querySelectorAll(
-      "#normalRate, #peakrate, #peakHourStart, #peakHourEnd"
+      "#cabType, #normalRate, #peakRate, #peakHourStart, #peakHourEnd"
     );
 
     for (let i = 0; i < inputs.length; i++) {
-      inputs[i].addEventListener("input", () => {
+      let listen;
+      inputs[i].id == "cabType" ? (listen = "change") : (listen = "input");
+
+      inputs[i].addEventListener(listen, () => {
         let values = [];
         inputs.forEach(elem => values.push(elem.value));
+        console.log(values);
+
         btnSave.disabled = values.includes("");
       });
     }
@@ -87,8 +92,17 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
         for (const key in data) {
           if (data.hasOwnProperty(key) && key != "__v" && key != "_id") {
             document.querySelector(`#${key}`).value = data[key];
+            let val = document.querySelector(`#${key}`).value;
+            console.log(`${key}: ${val}`);
+
             if (key != "cabType") {
               document.querySelector(`label[for=${key}]`).className = "active";
+            } else {
+              let options = document.querySelector(`#${key}`).value;
+              let selected = document.querySelector(".selected");
+              // selected.classList.remove("selected");
+              console.log(options, selected);
+              // document.querySelector(`#${key}`).change();
             }
           }
         }

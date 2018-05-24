@@ -11,5 +11,9 @@ app.config(function($routeProvider, $locationProvider) {
     .when("/tariff", {
       templateUrl: "/views/tariff.html",
       controller: "TariffController"
+    })
+    .when("/driver", {
+      templateUrl: "/views/driver.html",
+      controller: "DriverController"
     });
 });

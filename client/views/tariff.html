@@ -6,7 +6,7 @@
       </h4>
 
       <!-- window modal  -->
-      <div ng-show="addwindow" class="col s12 card black animated infinite jackInTheBox">
+      <div ng-show="addwindow" class="col s12 card black">
         <form class="tariff-form white-text">
           <h5>Add a new tariff plan
             <span ng-click="closeform()" class="right" style="cursor: pointer">
@@ -14,8 +14,8 @@
             </span>
           </h5>
           <div class="input-field col s12">
-            <select id="cabType" required>
-              <!-- <option disabled selected>Choose Cab Type</option> -->
+            <select id="cabType">
+              <option value="" disabled selected>Choose Cab Type</option>
               <option value="Micro">Micro</option>
               <option value="Mini">Mini</option>
               <option value="Prime Sedan">Prime Sedan</option>
@@ -63,12 +63,13 @@
             <td>{{tariff.peakRate}}</td>
             <td>{{tariff.peakHourStart}} - {{tariff.peakHourEnd}}</td>
             <td>
-              <span ng-click="deletetariff(tariff._id)" style="cursor: pointer">
-                <i class="material-icons">delete_forever</i>
-              </span>
               <span ng-click="showtariff(tariff._id)" style="cursor: pointer">
-                <i class="material-icons">menu</i>
+                <i class="material-icons yellow-text">menu</i>
               </span>
+              <span ng-click="deletetariff(tariff._id)" style="cursor: pointer">
+                <i class="material-icons red-text">delete_forever</i>
+              </span>
+
             </td>
           </tr>
         </tbody>
