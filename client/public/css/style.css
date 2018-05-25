@@ -24,12 +24,14 @@ textarea.materialize-textarea {
 }
 
 /* tariff.html styles */
-.tariff-form input {
+.tariff-form input,
+.tariff-form input[type="text"]:not(.browser-default):disabled {
   color: white;
 }
 
 /* driver.html styles */
 .driver-form input,
+.driver-form input[type="text"]:not(.browser-default):disabled,
 textarea {
   color: white;
 }

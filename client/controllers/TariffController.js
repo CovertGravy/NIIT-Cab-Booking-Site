@@ -14,14 +14,12 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
   };
 
   $scope.tariffs = [];
-
   $scope.addwindow = false;
 
   $scope.showform = function() {
     $scope.addwindow = true;
 
     // disable and enable button
-
     let btnSave = document.querySelector("#saveform");
     btnSave.disabled = true;
 
@@ -85,9 +83,9 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
     if (tariffid) {
       $scope.showform();
 
-      $http.get(`/showtariff/${tariffid}`).then(res => {
-        console.log(res.data);
-        let data = res.data[0];
+      $http.get(`/showtariff/${tariffid}`).then(response => {
+        console.log(response.data);
+        let data = response.data[0];
         console.log(data);
         for (const key in data) {
           if (
@@ -109,8 +107,6 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
             $scope.updateID = data[key];
           }
         }
-        // document.querySelector(``)
-        // $scope.showform();
       });
     } else {
       $http.get("/showtariff").then(res => {
@@ -132,6 +128,13 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
 
     $http.put(`/updatetariff/${tariffid}`, $scope.newtariff).then(response => {
       alert("Tariff updated!");
+
+      for (const key in $scope.newtariff) {
+        if ($scope.newtariff.hasOwnProperty(key)) {
+          $scope.newtariff[key] = "";
+        }
+      }
+      console.log($scope.newtariff);
     });
   };
 
