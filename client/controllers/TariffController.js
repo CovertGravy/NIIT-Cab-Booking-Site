@@ -5,6 +5,7 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
     dropdownOptions: {}
   };
   const instances = M.FormSelect.init(elems, options);
+
   $scope.newtariff = {
     cabType: "",
     normalRate: "",
@@ -14,8 +15,6 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
   };
 
   $scope.tariffs = [];
-  $scope.addwindow = false;
-
   $scope.showform = function() {
     $scope.addwindow = true;
 
@@ -26,7 +25,6 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
     let inputs = document.querySelectorAll(
       "#cabType, #normalRate, #peakRate, #peakHourStart, #peakHourEnd"
     );
-
     for (let i = 0; i < inputs.length; i++) {
       let listen;
       inputs[i].id == "cabType" ? (listen = "change") : (listen = "input");
@@ -35,7 +33,6 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
         let values = [];
         inputs.forEach(elem => values.push(elem.value));
         console.log(values);
-
         btnSave.disabled = values.includes("");
       });
     }
@@ -144,6 +141,5 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
       alert("Tariff Deleted!");
     });
   };
-
   $scope.showtariff();
 });

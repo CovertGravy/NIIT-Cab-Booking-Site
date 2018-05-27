@@ -37,7 +37,11 @@
             <label for="email">Email Address</label>
           </div>
           <!-- <h5>Cab Details</h5> -->
-          <div class="input-field col s6">
+          <div ng-show="DriverUpdate" class="col s2">
+            <label for="DriverCabDisplay">Current Cab Type</label>
+            <input id="DriverCabDisplay" value="{{DriverCabDisplay}}" type="text" disabled>
+          </div>
+          <div id="selectDriverCab" class="input-field col s6">
             <i class="material-icons prefix">local_taxi</i>
             <select id="driverCab">
               <option value="" disabled selected>Choose Cab Type</option>
@@ -64,10 +68,37 @@
           </div>
 
           <div class="input-field col s6 offset-s6">
-            <button type="button" ng-click="saveform()" id="saveform" class="btn yellow btn-small black-text right">save</button>
+            <button type="button" ng-click="DriverUpdate ? updateDriver(updateID) : saveform()" id="saveform" class="btn yellow btn-small black-text right">{{DriverUpdate ? 'update' : 'Add'}}</button>
             <!-- <input type="reset" value="Reset" class="btn btn-small white black-text right" /> -->
           </div>
 
       </div>
+      <table>
+        <thead>
+          <th>Driver</th>
+          <th>Contact</th>
+          <th>Email</th>
+          <th>Cab Type</th>
+          <th>Actions</th>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat="Driver in Drivers">
+            <td>{{Driver.firstname}} {{Driver.secondname}}</td>
+            <td>{{Driver.contact}}</td>
+            <td>{{Driver.email}}</td>
+            <td>{{Driver.driverCab}}</td>
+            <td>
+              <span ng-click="showDriver(Driver._id)" style="cursor: pointer">
+                <i class="material-icons yellow-text">menu</i>
+              </span>
+              <span ng-click="deleteDriver(Driver._id)" style="cursor: pointer">
+                <i class="material-icons red-text">delete_forever</i>
+              </span>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
