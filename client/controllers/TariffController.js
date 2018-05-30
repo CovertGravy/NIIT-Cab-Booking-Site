@@ -65,7 +65,7 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
     $http.post("/addtariff", $scope.newtariff).then(response => {
       document.querySelector(".tariff-form").reset();
       alert("Tariff Added!");
-
+      $scope.showtariff();
       $scope.addwindow = false;
       for (const key in $scope.newtariff) {
         if ($scope.newtariff.hasOwnProperty(key)) {
@@ -125,13 +125,14 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
 
     $http.put(`/updatetariff/${tariffid}`, $scope.newtariff).then(response => {
       alert("Tariff updated!");
-
+      $scope.closeform();
       for (const key in $scope.newtariff) {
         if ($scope.newtariff.hasOwnProperty(key)) {
           $scope.newtariff[key] = "";
         }
       }
       console.log($scope.newtariff);
+      $scope.showtariff();
     });
   };
 
@@ -139,6 +140,7 @@ angular.module("myApp").controller("TariffController", function($scope, $http) {
     $http.delete(`/deletetariff/${tariffid}`).then(response => {
       $scope.showtariff();
       alert("Tariff Deleted!");
+      $scope.showtariff();
     });
   };
   $scope.showtariff();

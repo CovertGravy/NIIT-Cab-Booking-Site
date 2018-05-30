@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const driverSchema = mongoose.Schema({
   firstname: String,
-  secondname: String,
+  lastname: String,
   address: String,
   contact: String,
   email: String,

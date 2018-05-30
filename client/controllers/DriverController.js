@@ -8,7 +8,7 @@ angular.module("myApp").controller("DriverController", function($scope, $http) {
 
   $scope.newDriver = {
     firstname: "",
-    secondname: "",
+    lastname: "",
     address: "",
     contact: "",
     email: "",
@@ -27,7 +27,7 @@ angular.module("myApp").controller("DriverController", function($scope, $http) {
     let btnSave = document.querySelector("#saveform");
     btnSave.disabled = true;
     let inputs = document.querySelectorAll(
-      "#firstname, #secondname, #address, #contact, #email, #driverCab, #cabMake, #cabModel, #cabRegister"
+      "#firstname, #lastname, #address, #contact, #email, #driverCab, #cabMake, #cabModel, #cabRegister"
     );
 
     for (let i = 0; i < inputs.length; i++) {
@@ -65,13 +65,14 @@ angular.module("myApp").controller("DriverController", function($scope, $http) {
     $http.post("/addDriver", $scope.newDriver).then(response => {
       document.querySelector(".driver-form").reset();
       alert("Driver Added!");
-      $scope.addwindow = false;
+      $scope.closeform();
       for (const key in $scope.newDriver) {
         if ($scope.newDriver.hasOwnProperty(key)) {
           $scope.newDriver[key] = "";
         }
       }
       console.log($scope.newDriver);
+      $scope.showDriver();
     });
   };
 
@@ -131,6 +132,7 @@ angular.module("myApp").controller("DriverController", function($scope, $http) {
         }
       }
       console.log($scope.newDriver);
+      $scope.showDriver();
     });
   };
 

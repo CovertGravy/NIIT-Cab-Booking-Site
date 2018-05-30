@@ -15,5 +15,16 @@ app.config(function($routeProvider, $locationProvider) {
     .when("/driver", {
       templateUrl: "/views/driver.html",
       controller: "DriverController"
+    })
+    .when("/register", {
+      templateUrl: "/views/register.html",
+      controller: "RegisterController"
+    })
+    .when("/login", {
+      templateUrl: "/views/login.html",
+      controller: "LoginController"
+    })
+    .otherwise({
+      redirectTo: "/"
     });
 });

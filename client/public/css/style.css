@@ -29,9 +29,17 @@ textarea.materialize-textarea {
   color: white;
 }
 
+.tariff-form .select-wrapper .caret {
+  fill: white;
+}
+
 /* driver.html styles */
 .driver-form input,
 .driver-form input[type="text"]:not(.browser-default):disabled,
 textarea {
   color: white;
+}
+
+.driver-form .select-wrapper .caret {
+  fill: white;
 }
