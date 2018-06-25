@@ -1,4 +1,8 @@
-/* home.html styles */
+input {
+  color: white;
+}
+/* book.htmlstyles  */
+
 #map {
   position: relative;
   width: 100%;
@@ -24,6 +28,7 @@ textarea.materialize-textarea {
 }
 
 /* tariff.html styles */
+
 .tariff-form input,
 .tariff-form input[type="text"]:not(.browser-default):disabled {
   color: white;
@@ -42,4 +47,21 @@ textarea {
 
 .driver-form .select-wrapper .caret {
   fill: white;
+}
+
+/* home.html styles */
+#home-cover {
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  width: 100%;
+  height: 90vh;
+  overflow: hidden;
+}
+
+#home-cover img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
