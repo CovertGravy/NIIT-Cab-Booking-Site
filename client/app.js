@@ -28,6 +28,10 @@ app.config(function($routeProvider, $locationProvider) {
       templateUrl: "/views/login.html",
       controller: "LoginController"
     })
+    .when("/profile", {
+      templateUrl: "/views/profile.html",
+      controller: "ProfileController"
+    })
     .otherwise({
       redirectTo: "/"
     });
@@ -44,7 +48,7 @@ app.run(($cookies, $location, $http, $rootScope) => {
     const user = $cookies.getObject("authUser");
 
     const public_pages = ["/", "/register", "/login"];
-    const user_pages = ["/book"];
+    const user_pages = ["/book", "/profile"];
     const admin_pages = ["/tariff", "/driver"];
 
     const access = pages => pages.includes($location.path());

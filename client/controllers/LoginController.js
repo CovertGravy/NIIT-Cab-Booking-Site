@@ -3,6 +3,7 @@ angular
   .controller("LoginController", function(
     $scope,
     $http,
+    $location,
     AuthenticationService
   ) {
     initController();
@@ -24,8 +25,21 @@ angular
         }
       }
       console.log($scope.login_credential);
-      AuthenticationService.Login($scope.login_credential, response => {
-        console.log("service started");
-      });
+      let { email, password } = $scope.login_credential;
+      email == ""
+        ? M.toast({ html: "Enter your email", displayLenth: 1000 })
+        : (email = true);
+      password == ""
+        ? M.toast({ html: "Enter your password", displayLenth: 1000 })
+        : (password = true);
+
+      if (email && password) {
+        AuthenticationService.Login($scope.login_credential, response => {
+          console.log(response);
+          response === "login success"
+            ? $location.path("/")
+            : window.alert(response.message);
+        });
+      }
     };
   });

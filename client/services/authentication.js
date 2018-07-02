@@ -10,7 +10,6 @@ function Service($http, $cookies, $location) {
   function Login(user, callback) {
     $http.post("/login", user).then(response => {
       const info = response.data;
-      console.log(info);
       if (info.success && info.token) {
         sessionStorage.setItem("token", info.token);
 
@@ -32,7 +31,9 @@ function Service($http, $cookies, $location) {
         };
         console.log(user_info);
         $cookies.putObject("authUser", user_info);
-        $location.path("/");
+        callback("login success");
+      } else {
+        callback(info);
       }
     });
   }
