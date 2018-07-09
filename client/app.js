@@ -46,12 +46,13 @@ app.run(($cookies, $location, $http, $rootScope) => {
 
   $rootScope.$on("$locationChangeStart", (event, next, current) => {
     const user = $cookies.getObject("authUser");
+    const current_path = $location.path();
 
-    const public_pages = ["/", "/register", "/login"];
+    const public_pages = ["/", "/register", "/login", ""];
     const user_pages = ["/book", "/profile"];
     const admin_pages = ["/tariff", "/driver"];
 
-    const access = pages => pages.includes($location.path());
+    const access = pages => pages.includes(current_path);
 
     if (user == undefined) {
       access(public_pages) ? true : $location.path("/login");

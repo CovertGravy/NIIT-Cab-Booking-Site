@@ -1,7 +1,22 @@
 input {
   color: white;
 }
-/* book.htmlstyles  */
+
+body {
+  background: url("../images/Photo\ by\ Scott\ Walsh\ on\ Unsplash.jpg");
+  background-size: 60% 100%;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* #region login.html */
+.login.container {
+  margin: 20vh auto;
+}
+/* #endregion login.html */
+
+/* #region book.html */
 
 #map {
   position: relative;
@@ -27,7 +42,9 @@ textarea.materialize-textarea {
   padding: 20px !important;
 }
 
-/* tariff.html styles */
+/* #endregion book.html */
+
+/* #region tariff.html */
 
 .tariff-form input,
 .tariff-form input[type="text"]:not(.browser-default):disabled {
@@ -37,8 +54,10 @@ textarea.materialize-textarea {
 .tariff-form .select-wrapper .caret {
   fill: white;
 }
+/* #endregion tariff.html */
 
-/* driver.html styles */
+/* #region driver.html */
+
 .driver-form input,
 .driver-form input[type="text"]:not(.browser-default):disabled,
 textarea {
@@ -49,14 +68,40 @@ textarea {
   fill: white;
 }
 
-/* home.html styles */
-#home-cover {
-  background: url("../images/Photo\ by\ Scott\ Walsh\ on\ Unsplash.jpg");
-  background-size: 60% 100%;
-  width: 100vw;
-  height: 90.4vh;
-  overflow: hidden;
+.driver-table {
+  background-color: #000000;
+  color: whitesmoke;
+  border-radius: 1em;
 }
+
+.driver-table thead {
+  color: #ffeb3b;
+  font-size: 1.1em;
+}
+.driver-table thead tr th,
+.driver-table tbody tr td {
+  text-align: center;
+}
+
+.driver-table tbody tr td:first-child {
+  text-align: left;
+  padding-left: 1em;
+  text-transform: capitalize;
+}
+
+.driver h4 {
+  background-color: #101111b2;
+  text-align: center;
+  color: white;
+  border-radius: 0.3em;
+  display: inline-block;
+  padding: 0.5em;
+  margin-left: 8em;
+}
+/* #endregion driver.html */
+
+/* #region home.html */
+
 #home-cover h4 {
   padding: 1rem;
   display: inline-block;
@@ -87,3 +132,4 @@ textarea {
   border: 3px solid #141a1e;
   color: #141a1e;
 }
+/* #endregion home.html */

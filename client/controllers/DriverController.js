@@ -21,9 +21,8 @@ angular.module("myApp").controller("DriverController", function($scope, $http) {
 
   $scope.showform = function() {
     $scope.addwindow = true;
-    //////////////////////////////
-    // disable and enable button//
-    //////////////////////////////
+    document.body.style.overflow = "scroll";
+
     let btnSave = document.querySelector("#saveform");
     btnSave.disabled = true;
     let inputs = document.querySelectorAll(
@@ -31,8 +30,7 @@ angular.module("myApp").controller("DriverController", function($scope, $http) {
     );
 
     for (let i = 0; i < inputs.length; i++) {
-      let listen;
-      inputs[i].id == "driverCab" ? (listen = "change") : (listen = "input");
+      let listen = inputs[i].id == "driverCab" ? "change" : "input";
       inputs[i].addEventListener(listen, () => {
         let values = [];
         inputs.forEach(elem => values.push(elem.value));
@@ -44,6 +42,7 @@ angular.module("myApp").controller("DriverController", function($scope, $http) {
 
   $scope.closeform = function() {
     $scope.addwindow = false;
+    document.body.style.overflow = "hidden";
     if ($scope.DriverUpdate) {
       $scope.DriverUpdate = false;
       let div = document.querySelector("#selectDriverCab");

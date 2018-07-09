@@ -1,4 +1,4 @@
-<div class="container">
+<div class="driver container">
   <div class="row">
     <div class="col s12 m12">
       <h4>Drivers
@@ -73,7 +73,7 @@
           </div>
 
       </div>
-      <table>
+      <table class="z-depth-2 driver-table">
         <thead>
           <th>Driver</th>
           <th>Contact</th>
@@ -90,7 +90,7 @@
             <td>{{Driver.driverCab}}</td>
             <td>
               <span ng-click="showDriver(Driver._id)" style="cursor: pointer">
-                <i class="material-icons yellow-text">menu</i>
+                <i class="material-icons orange-text">menu</i>
               </span>
               <span ng-click="deleteDriver(Driver._id)" style="cursor: pointer">
                 <i class="material-icons red-text">delete_forever</i>
