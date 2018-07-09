@@ -22,6 +22,8 @@ angular.module("myApp").controller("DriverController", function($scope, $http) {
   $scope.showform = function() {
     $scope.addwindow = true;
     document.body.style.overflow = "scroll";
+    document.querySelector("#drivers_heading").textContent =
+      "Driver Registeration";
 
     let btnSave = document.querySelector("#saveform");
     btnSave.disabled = true;
@@ -43,10 +45,12 @@ angular.module("myApp").controller("DriverController", function($scope, $http) {
   $scope.closeform = function() {
     $scope.addwindow = false;
     document.body.style.overflow = "hidden";
+    document.querySelector("#drivers_heading").textContent = "Drivers";
+
     if ($scope.DriverUpdate) {
       $scope.DriverUpdate = false;
-      let div = document.querySelector("#selectDriverCab");
-      div.className = "input-field col s6";
+      document.querySelector("#selectDriverCab").className =
+        "input-field col s6";
     }
     document.querySelector(".driver-form").reset();
   };
