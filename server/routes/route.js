@@ -1,17 +1,17 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 //////////////////
 // ?models here //
 //////////////////
-const tariff = require("../models/tariff");
-const Driver = require("../models/driver");
-const user = require("../models/user");
+const tariff = require('../models/tariff');
+const Driver = require('../models/driver');
+const user = require('../models/user');
 
 //////////////////
 // ?Tariff APIs //
 //////////////////
-router.post("/addtariff", (req, res) => {
+router.post('/addtariff', (req, res) => {
   let newTariff = new tariff(req.body);
   // newTariff.cabType = req.body.cabType;
 
@@ -21,13 +21,13 @@ router.post("/addtariff", (req, res) => {
     } else {
       res.json({
         success: true,
-        message: "Record added!"
+        message: 'Record added!'
       });
     }
   });
 });
 
-router.get("/showtariff", (req, res) => {
+router.get('/showtariff', (req, res) => {
   tariff.find({}, (err, data) => {
     if (err) {
       throw err;
@@ -37,7 +37,7 @@ router.get("/showtariff", (req, res) => {
   });
 });
 
-router.get("/showtariff/:id", (req, res) => {
+router.get('/showtariff/:id', (req, res) => {
   tariff.find(
     {
       _id: req.params.id
@@ -52,7 +52,7 @@ router.get("/showtariff/:id", (req, res) => {
   );
 });
 
-router.put("/updatetariff/:id", (req, res) => {
+router.put('/updatetariff/:id', (req, res) => {
   tariff.findOneAndUpdate(
     {
       _id: req.params.id
@@ -64,14 +64,14 @@ router.put("/updatetariff/:id", (req, res) => {
       } else {
         res.json({
           success: true,
-          message: "Tariff updated successfully"
+          message: 'Tariff updated successfully'
         });
       }
     }
   );
 });
 
-router.delete("/deletetariff/:id", (req, res) => {
+router.delete('/deletetariff/:id', (req, res) => {
   tariff.findOneAndRemove(
     {
       _id: req.params.id
@@ -82,7 +82,7 @@ router.delete("/deletetariff/:id", (req, res) => {
       } else {
         res.json({
           success: true,
-          message: "Record Successfully Deleted"
+          message: 'Record Successfully Deleted'
         });
       }
     }
@@ -92,7 +92,7 @@ router.delete("/deletetariff/:id", (req, res) => {
 //////////////////
 // ?Driver APIs //
 //////////////////
-router.post("/addDriver", (req, res) => {
+router.post('/addDriver', (req, res) => {
   let newDriver = new Driver(req.body);
   // newDriver.cabType = req.body.cabType;
 
@@ -102,13 +102,13 @@ router.post("/addDriver", (req, res) => {
     } else {
       res.json({
         success: true,
-        message: "Record added!"
+        message: 'Record added!'
       });
     }
   });
 });
 
-router.get("/showDriver", (req, res) => {
+router.get('/showDriver', (req, res) => {
   Driver.find({}, (err, data) => {
     if (err) {
       throw err;
@@ -118,10 +118,10 @@ router.get("/showDriver", (req, res) => {
   });
 });
 
-router.get("/showDriver/:id", (req, res) => {
+router.get('/showDriver/:email', (req, res) => {
   Driver.find(
     {
-      _id: req.params.id
+      email: req.params.email
     },
     (err, data) => {
       if (err) {
@@ -133,7 +133,7 @@ router.get("/showDriver/:id", (req, res) => {
   );
 });
 
-router.put("/updateDriver/:id", (req, res) => {
+router.put('/updateDriver/:id', (req, res) => {
   Driver.findOneAndUpdate(
     {
       _id: req.params.id
@@ -145,14 +145,14 @@ router.put("/updateDriver/:id", (req, res) => {
       } else {
         res.json({
           success: true,
-          message: "Driver updated successfully"
+          message: 'Driver updated successfully'
         });
       }
     }
   );
 });
 
-router.delete("/deleteDriver/:id", (req, res) => {
+router.delete('/deleteDriver/:id', (req, res) => {
   Driver.findOneAndRemove(
     {
       _id: req.params.id
@@ -163,7 +163,7 @@ router.delete("/deleteDriver/:id", (req, res) => {
       } else {
         res.json({
           success: true,
-          message: "Record Successfully Deleted"
+          message: 'Record Successfully Deleted'
         });
       }
     }
@@ -173,7 +173,7 @@ router.delete("/deleteDriver/:id", (req, res) => {
 //////////////////
 // ?user APIs //
 //////////////////
-router.post("/adduser", (req, res) => {
+router.post('/adduser', (req, res) => {
   let newuser = new user(req.body);
   // newuser.cabType = req.body.cabType;
 
@@ -183,13 +183,13 @@ router.post("/adduser", (req, res) => {
     } else {
       res.json({
         success: true,
-        message: "Record added!"
+        message: 'Record added!'
       });
     }
   });
 });
 
-router.get("/showusers", (req, res) => {
+router.get('/showusers', (req, res) => {
   user.find({}, (err, data) => {
     if (err) {
       throw err;
@@ -199,7 +199,7 @@ router.get("/showusers", (req, res) => {
   });
 });
 
-router.post("/login", (req, res) => {
+router.post('/login', (req, res) => {
   user.findOne(
     {
       email: req.body.email
@@ -210,16 +210,16 @@ router.post("/login", (req, res) => {
       } else if (!user_data) {
         res.json({
           success: false,
-          message: "Incorrect email"
+          message: 'Incorrect email'
         });
       } else if (!user_data.validPassword(req.body.password)) {
         res.json({
           success: false,
-          message: "Incorrect Password"
+          message: 'Incorrect Password'
         });
       } else if (user_data) {
         // res.json(user_data);
-        const token = jwt.sign(user_data.toJSON(), "covertsecret", {
+        const token = jwt.sign(user_data.toJSON(), 'covertsecret', {
           expiresIn: 1440
         });
         res.json({
@@ -233,7 +233,7 @@ router.post("/login", (req, res) => {
   );
 });
 
-router.put("/updateuser/:id", (req, res) => {
+router.put('/updateuser/:id', (req, res) => {
   user.findOneAndUpdate(
     {
       _id: req.params.id
@@ -245,14 +245,14 @@ router.put("/updateuser/:id", (req, res) => {
       } else {
         res.json({
           success: true,
-          message: "user updated successfully"
+          message: 'user updated successfully'
         });
       }
     }
   );
 });
 
-router.delete("/deleteuser/:id", (req, res) => {
+router.delete('/deleteuser/:id', (req, res) => {
   user.findOneAndRemove(
     {
       _id: req.params.id
@@ -263,7 +263,7 @@ router.delete("/deleteuser/:id", (req, res) => {
       } else {
         res.json({
           success: true,
-          message: "Record Successfully Deleted"
+          message: 'Record Successfully Deleted'
         });
       }
     }

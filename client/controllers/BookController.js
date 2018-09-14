@@ -1,23 +1,12 @@
-angular.module("myApp").controller("BookController", function($scope) {
+angular.module('myApp').controller('BookController', function($scope) {
+  $scope.proceed = false;
+  const elems = document.querySelectorAll('.modal');
+  const instances = M.Modal.init(elems);
+  const socket = io.connect('http://localhost:3000');
+  socket.on('drivers location', function(data) {
+    console.log(data);
+  });
   $scope.initMap = function() {
-    // ------------ basic map render ---------------
-    // let coords = { lat: 28.524579, lng: 77.206615 };
-    // let canvas = document.getElementById('map');
-    // let options = {
-    //   zoom: 18,
-    //   center: coords
-    // };
-
-    // let map = new google.maps.Map(canvas, options);
-
-    // let marker = new google.maps.Marker({
-    //   position: coords,
-    //   map: map,
-    //   draggable: true,
-    //   animation: google.maps.Animation.DROP,
-    //   title: 'Drag Me!'
-    // });
-
     // ----------------- naviagtor GPS ----------------------
     let id = navigator.geolocation.watchPosition(pos, err);
 
@@ -28,7 +17,7 @@ angular.module("myApp").controller("BookController", function($scope) {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      let canvas = document.getElementById("map");
+      let canvas = document.getElementById('map');
       let options = {
         zoom: 16,
         center: coords
@@ -43,10 +32,10 @@ angular.module("myApp").controller("BookController", function($scope) {
       let directionsService = new google.maps.DirectionsService();
       let directionsDisplay = new google.maps.DirectionsRenderer();
 
-      let search = document.getElementById("search");
+      let search = document.getElementById('search');
       let autocomplete = new google.maps.places.Autocomplete(search);
 
-      autocomplete.bindTo("bounds", map);
+      autocomplete.bindTo('bounds', map);
 
       let destination = new google.maps.Marker({
         // position: place.geometry.location,
@@ -81,13 +70,13 @@ angular.module("myApp").controller("BookController", function($scope) {
             {
               origins: [origin],
               destinations: [dest],
-              travelMode: "DRIVING"
+              travelMode: 'DRIVING'
             },
             callback
           );
 
           function callback(response, status) {
-            if (status === "OK") {
+            if (status === 'OK') {
               let origins = response.originAddresses;
               let destinations = response.destinationAddresses;
 
@@ -101,27 +90,24 @@ angular.module("myApp").controller("BookController", function($scope) {
                   let from = origins[i];
                   let to = destinations[i];
 
-                  document.getElementById("distance").innerText = `${distance}`;
-                  document.getElementById("duration").innerText = `${duration}`;
+                  document.getElementById('distance').innerText = `${distance}`;
+                  document.getElementById('duration').innerText = `${duration}`;
                 }
               }
             }
           }
 
-          //----------- Directions Route ----------------
-          // let directionsService = new google.maps.DirectionsService();
-          // let directionsDisplay = new google.maps.DirectionsRenderer();
           directionsDisplay.setMap(map);
 
           function calcRoute() {
             let request = {
               origin: origin,
               destination: dest,
-              travelMode: "DRIVING"
+              travelMode: 'DRIVING'
             };
 
             directionsService.route(request, function(response, status) {
-              if (status === "OK") {
+              if (status === 'OK') {
                 directionsDisplay.setDirections(response);
                 markerArray.forEach(element => {
                   element.setVisible(false);
@@ -134,7 +120,7 @@ angular.module("myApp").controller("BookController", function($scope) {
         }
       };
 
-      autocomplete.addListener("place_changed", function() {
+      autocomplete.addListener('place_changed', function() {
         let place = autocomplete.getPlace();
         destination.setVisible(false);
 
@@ -152,10 +138,11 @@ angular.module("myApp").controller("BookController", function($scope) {
           }
           markerArray.push(destination);
           console.log(markerArray);
+          $scope.proceed = true;
+          $scope.$apply();
 
           // let bound1 = new google.maps.LatLng(destination.position.lat(), destination.position.lng());
           boundf();
-
           // bounds.extend(bound1);
         }
       });
@@ -173,15 +160,15 @@ angular.module("myApp").controller("BookController", function($scope) {
 
       // reverse geocoder for current navigator position
       geocoder.geocode({ location: coords }, function(results, status) {
-        if (status === "OK") {
+        if (status === 'OK') {
           if (results[0]) {
-            document.getElementById("pos-input").value =
+            document.getElementById('pos-input').value =
               results[0].formatted_address;
             // materialize textarea resize on init
-            M.textareaAutoResize(document.getElementById("pos-input"));
+            M.textareaAutoResize(document.getElementById('pos-input'));
             console.log(results[0]);
           } else {
-            window.alert("No results found!");
+            window.alert('No results found!');
           }
         } else {
           window.alert(`Geocoder failed due to ${status}`);
@@ -189,19 +176,19 @@ angular.module("myApp").controller("BookController", function($scope) {
       });
 
       // dragend event with reverse geocoder
-      google.maps.event.addListener(marker, "dragend", function(e) {
+      google.maps.event.addListener(marker, 'dragend', function(e) {
         let newPos = {
           lat: e.latLng.lat(),
           lng: e.latLng.lng()
         };
         geocoder.geocode({ location: newPos }, function(results, status) {
-          if (status === "OK") {
+          if (status === 'OK') {
             if (results[0]) {
-              document.getElementById("pos-input").value =
+              document.getElementById('pos-input').value =
                 results[0].formatted_address;
               console.log(results[0]);
             } else {
-              window.alert("No results found!");
+              window.alert('No results found!');
             }
           } else {
             window.alert(`Geocoder failed due to ${status}`);
@@ -212,7 +199,7 @@ angular.module("myApp").controller("BookController", function($scope) {
     }
 
     function err() {
-      window.alert("failed");
+      window.alert('failed');
     }
   };
 });

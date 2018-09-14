@@ -1,4 +1,4 @@
-angular.module("myApp").factory("AuthenticationService", Service);
+angular.module('myApp').factory('AuthenticationService', Service);
 
 function Service($http, $cookies, $location) {
   const service = {
@@ -8,10 +8,10 @@ function Service($http, $cookies, $location) {
   return service;
 
   function Login(user, callback) {
-    $http.post("/login", user).then(response => {
+    $http.post('/login', user).then(response => {
       const info = response.data;
       if (info.success && info.token) {
-        sessionStorage.setItem("token", info.token);
+        sessionStorage.setItem('token', info.token);
 
         const {
           _id: id,
@@ -30,8 +30,8 @@ function Service($http, $cookies, $location) {
           contact
         };
         console.log(user_info);
-        $cookies.putObject("authUser", user_info);
-        callback("login success");
+        $cookies.putObject('authUser', user_info);
+        callback('login success');
       } else {
         callback(info);
       }
@@ -39,6 +39,8 @@ function Service($http, $cookies, $location) {
   }
 
   function Logout() {
-    console.log("logout");
+    console.log('logout');
+    sessionStorage.removeItem('token');
+    $cookies.remove('authUser');
   }
 }

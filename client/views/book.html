@@ -3,6 +3,8 @@
     <div class="col s12 m7 card grey lighten-1">
       <h3>Google Map</h3>
       <div id="map" class="z-depth-1" ng-init="initMap()"></div>
+      <button ng-show="proceed" class="btn blue modal-trigger" id="ride_now" data-target='book-modal'>Ride Now</button>
+      <button ng-show="proceed" class="btn orange" id="ride_later">Ride Later</button>
     </div>
     <div class="col s12 m5">
       <div class="home-info card black">
@@ -32,4 +34,21 @@
       <!-- <p>Distance <span id="distance" class="blue badge white-text"></span></p> -->
     </div>
   </div>
+</div>
+
+<div id="book-modal" class="modal black">
+  <div class="modal-content">
+    <div class="input-field">
+      <i class="material-icons prefix">local_taxi</i>
+      <select>
+        <option value="" disabled selected>Choose Cab Type</option>
+        <option value="Micro">Micro</option>
+        <option value="Mini">Mini</option>
+        <option value="Prime Sedan">Prime Sedan</option>
+        <option value="Prime SUV">Prime SUV</option>
+      </select>
+      <!-- <label for="driverCab">Choose Cab Type</label> -->
+    </div>
+  </div>
+
 </div>

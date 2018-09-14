@@ -3,7 +3,7 @@ input {
 }
 
 body {
-  background: url("../images/Photo\ by\ Scott\ Walsh\ on\ Unsplash.jpg");
+  background: url('../images/Photo\ by\ Scott\ Walsh\ on\ Unsplash.jpg');
   background-size: 60% 100%;
   width: 100vw;
   height: 100vh;
@@ -25,6 +25,19 @@ body {
   margin-bottom: 10px;
 }
 
+button#ride_now,
+button#ride_later {
+  position: absolute;
+  top: 85%;
+}
+
+button#ride_now {
+  left: 21%;
+}
+
+button#ride_later {
+  left: 50%;
+}
 .details {
   margin-top: 5px !important;
 }
@@ -46,8 +59,34 @@ textarea.materialize-textarea {
 
 /* #region tariff.html */
 
+.tariff h4 {
+  background-color: #000000e3;
+  text-align: center;
+  color: white;
+  border-radius: 0.1em;
+  display: inline-block;
+  padding: 0.4em;
+  margin-left: 10em;
+}
+
+.tariff-table {
+  background-color: #000000e3;
+  color: whitesmoke;
+  border-radius: 1em;
+}
+
+.tariff-table thead {
+  color: #ffeb3b;
+  font-size: 1.1em;
+}
+
+.tariff-table thead tr th,
+.tariff-table tbody tr td {
+  text-align: center;
+}
+
 .tariff-form input,
-.tariff-form input[type="text"]:not(.browser-default):disabled {
+.tariff-form input[type='text']:not(.browser-default):disabled {
   color: white;
 }
 
@@ -59,7 +98,7 @@ textarea.materialize-textarea {
 /* #region driver.html */
 
 .driver-form input,
-.driver-form input[type="text"]:not(.browser-default):disabled,
+.driver-form input[type='text']:not(.browser-default):disabled,
 textarea {
   color: white;
 }
@@ -96,7 +135,7 @@ textarea {
   border-radius: 0.1em;
   display: inline-block;
   padding: 0.4em;
-  margin-left: 8em;
+  margin-left: 10em;
 }
 /* #endregion driver.html */
 
@@ -110,7 +149,7 @@ textarea {
 }
 
 #home-cover h4 span {
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   text-decoration: underline;
 }
 
@@ -123,7 +162,7 @@ textarea {
   border-radius: 40px;
   padding: 0 20px;
   color: #f4ebb2;
-  font-family: "Roboto";
+  font-family: 'Roboto';
   font-size: 31px;
 }
 
@@ -133,3 +172,26 @@ textarea {
   color: #141a1e;
 }
 /* #endregion home.html */
+
+/* #region profile.html */
+.profile.container {
+  color: white;
+  opacity: 0.9;
+  margin: 10vh auto;
+}
+
+.profile.container h2,
+.profile.container h5 {
+  text-align: center;
+}
+
+.profile.container h6 {
+  margin: 1em;
+  padding: 0.4em;
+  text-align: left;
+}
+
+.profile.container button {
+  margin: 1em;
+}
+/* #endregion profile.html */

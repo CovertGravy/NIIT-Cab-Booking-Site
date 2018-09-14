@@ -16,7 +16,7 @@
   <script src="./public/js/jquery-3.1.1.min.js"></script>
   <script src="./public/js/materialize.min.js"></script>
 
-
+  <script src="/socket.io/socket.io.js"></script>
   <script src="app.js"></script>
   <script src="/services/authentication.js"></script>
   <script src="/controllers/HomeController.js"></script>
@@ -26,6 +26,7 @@
   <script src="/controllers/RegisterController.js"></script>
   <script src="/controllers/LoginController.js"></script>
   <script src="/controllers/ProfileController.js"></script>
+  <script src="/controllers/DriverhomeController.js"></script>
 
   <title>SinglePage Map</title>
 </head>
@@ -38,16 +39,31 @@
         <a href="/" class="yellow black-text brand-logo">Cab Booking
           <i class="right material-icons">local_taxi</i>
         </a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <ul id="nav-mobile" class="right">
           <li>
-            <a href="/">Home</a>
-          </li>
-          <!-- <li>
-            <a href="badges.html">Components</a>
+            <a ng-show='role' href="/">Home</a>
           </li>
           <li>
-            <a href="collapsible.html">JavaScript</a>
-          </li> -->
+            <a ng-show='!role' href="#/register">Register</a>
+          </li>
+          <li>
+            <a ng-show='!role' href="#/login">Login</a>
+          </li>
+          <li>
+            <a ng-if="role === 'user'" href="#/profile">Profile</a>
+          </li>
+          <li>
+            <a ng-if="role === 'driver'" href="#/driverhome">Ride</a>
+          </li>
+          <li>
+            <a ng-if="role === 'admin'" href="#/tariff">Tariff</a>
+          </li>
+          <li>
+            <a ng-if="role === 'admin'" href="#/driver">Drivers</a>
+          </li>
+          <li>
+            <a ng-show="loggedIn" ng-click="logout()" href="">Logout</a>
+          </li>
         </ul>
       </div>
     </nav>
