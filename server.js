@@ -25,7 +25,11 @@ io.set('heartbeat interval', 500);
 io.on('connection', function(socket) {
   console.log('new user');
   socket.on('drivers location', function(data) {
-    socket.broadcast.emit('drivers location', { lat: data.lat, lng: data.lng });
+    socket.broadcast.emit('drivers location', {
+      lat: data.lat,
+      lng: data.lng,
+      email: data.email
+    });
   });
 
   socket.on('disconnect', function(data) {

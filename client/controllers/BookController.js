@@ -1,11 +1,10 @@
 angular.module('myApp').controller('BookController', function($scope) {
   $scope.proceed = false;
+  $scope.driver_data = null;
   const elems = document.querySelectorAll('.modal');
   const instances = M.Modal.init(elems);
-  const socket = io.connect('http://localhost:3000');
-  socket.on('drivers location', function(data) {
-    console.log(data);
-  });
+  //socket gets data
+
   $scope.initMap = function() {
     // ----------------- naviagtor GPS ----------------------
     let id = navigator.geolocation.watchPosition(pos, err);
@@ -152,7 +151,28 @@ angular.module('myApp').controller('BookController', function($scope) {
         map: map,
         draggable: true
       });
-
+      let driver_marker;
+      let driver_marker_array = [];
+      let icon = 'http://maps.google.com/mapfiles/ms/micons/cabs.png';
+      const socket = io.connect('http://localhost:3000');
+      socket.on('drivers location', function(data) {
+        console.log(data);
+        $scope.driver_data = data;
+        if (driver_marker_array.includes(driver_marker)) {
+          driver_marker.setMap(null);
+          driver_marker = [];
+        }
+        driver_marker = new google.maps.Marker({
+          position: {
+            lat: $scope.driver_data.lat,
+            lng: $scope.driver_data.lng
+          },
+          map: map,
+          icon,
+          draggable: true
+        });
+        driver_marker_array.push(driver_marker);
+      });
       markerArray.push(marker);
 
       // let bound2 = new google.maps.LatLng(marker.position.lat(), marker.position.lng());

@@ -20,15 +20,21 @@ angular
 
         let map = new google.maps.Map(canvas, options);
         let geocoder = new google.maps.Geocoder();
+        let icon = 'http://maps.google.com/mapfiles/ms/micons/cabs.png';
         let marker = new google.maps.Marker({
           position: coords,
           map: map,
+          icon,
           draggable: true
         });
 
         // socket send driver location
         const socket = io.connect('http://localhost:3000');
-        socket.emit('drivers location', { lat: coords.lat, lng: coords.lng });
+        socket.emit('drivers location', {
+          lat: coords.lat,
+          lng: coords.lng,
+          email: $rootScope.currentUser.email
+        });
 
         // reverse geocoder for current navigator position
         geocoder.geocode({ location: coords }, function(results, status) {
@@ -53,6 +59,12 @@ angular
             lat: e.latLng.lat(),
             lng: e.latLng.lng()
           };
+
+          socket.emit('drivers location', {
+            lat: newPos.lat,
+            lng: newPos.lng,
+            email: $rootScope.currentUser.email
+          });
           geocoder.geocode({ location: newPos }, function(results, status) {
             if (status === 'OK') {
               if (results[0]) {
