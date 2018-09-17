@@ -2,13 +2,14 @@ angular.module('myApp').controller('BookController', function($scope) {
   $scope.proceed = false;
   $scope.driver_data = null;
   const elems = document.querySelectorAll('.modal');
+  const book_modal = document.querySelector('#book-modal');
   const instances = M.Modal.init(elems);
-  //socket gets data
+  const book_modal_instance = M.Modal.getInstance(book_modal);
+  const cab_options = document.querySelectorAll('option');
 
   $scope.initMap = function() {
     // ----------------- naviagtor GPS ----------------------
     let id = navigator.geolocation.watchPosition(pos, err);
-
     function pos(position) {
       console.log(position.coords.latitude);
       navigator.geolocation.clearWatch(id);
@@ -158,6 +159,7 @@ angular.module('myApp').controller('BookController', function($scope) {
       socket.on('drivers location', function(data) {
         console.log(data);
         $scope.driver_data = data;
+        $scope.$apply();
         if (driver_marker_array.includes(driver_marker)) {
           driver_marker.setMap(null);
           driver_marker = [];
@@ -221,5 +223,16 @@ angular.module('myApp').controller('BookController', function($scope) {
     function err() {
       window.alert('failed');
     }
+  };
+
+  $scope.check_cabs = function() {
+    $scope.driver_data
+      ? book_modal_instance.open()
+      : M.toast({ html: 'No Cabs Available', displayLenth: 1000 });
+
+    console.log(cab_options);
+    cab_options.forEach(option => {
+      option.disabled = option.value == $scope.driver_data.cab ? false : true;
+    });
   };
 });

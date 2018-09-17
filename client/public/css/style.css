@@ -55,6 +55,19 @@ textarea.materialize-textarea {
   padding: 20px !important;
 }
 
+#book-modal {
+  height: 80vh;
+}
+
+#book-modal .input-field .prefix {
+  left: 5px;
+}
+
+#book-modal select {
+  display: block;
+  padding-left: 30px;
+}
+
 /* #endregion book.html */
 
 /* #region tariff.html */

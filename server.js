@@ -28,7 +28,8 @@ io.on('connection', function(socket) {
     socket.broadcast.emit('drivers location', {
       lat: data.lat,
       lng: data.lng,
-      email: data.email
+      email: data.email,
+      cab: data.cab
     });
   });
 

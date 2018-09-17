@@ -3,7 +3,8 @@
     <div class="col s12 m7 card grey lighten-1">
       <h3>Google Map</h3>
       <div id="map" class="z-depth-1" ng-init="initMap()"></div>
-      <button ng-show="proceed" class="btn blue modal-trigger" id="ride_now" data-target='book-modal'>Ride Now</button>
+      <button ng-show="proceed" ng-click='check_cabs()' class="btn blue" id="ride_now">Ride
+        Now</button>
       <button ng-show="proceed" class="btn orange" id="ride_later">Ride Later</button>
     </div>
     <div class="col s12 m5">
