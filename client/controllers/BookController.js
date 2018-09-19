@@ -1,11 +1,20 @@
-angular.module('myApp').controller('BookController', function($scope) {
+angular.module('myApp').controller('BookController', function($scope, $http) {
   $scope.proceed = false;
   $scope.driver_data = null;
+  $scope.tariff_active = null;
+
+  $http.get('/showtariff').then(res => {
+    $scope.tariff_data = res.data;
+    console.log($scope.tariff_data);
+  });
+
   const elems = document.querySelectorAll('.modal');
   const book_modal = document.querySelector('#book-modal');
   const instances = M.Modal.init(elems);
   const book_modal_instance = M.Modal.getInstance(book_modal);
   const cab_options = document.querySelectorAll('option');
+  const cab_select = document.querySelector('#book-modal select');
+  const cab_check = document.querySelector('#book-modal div p');
 
   $scope.initMap = function() {
     // ----------------- naviagtor GPS ----------------------
@@ -225,14 +234,29 @@ angular.module('myApp').controller('BookController', function($scope) {
     }
   };
 
+  const showfare = cabtype => {
+    $scope.tariff_data.forEach(tariff => {
+      tariff.cabType == cabtype ? ($scope.tariff_active = tariff) : false;
+    });
+    console.log($scope.tariff_active);
+  };
+
   $scope.check_cabs = function() {
     $scope.driver_data
       ? book_modal_instance.open()
       : M.toast({ html: 'No Cabs Available', displayLenth: 1000 });
 
     console.log(cab_options);
-    cab_options.forEach(option => {
-      option.disabled = option.value == $scope.driver_data.cab ? false : true;
+    // cab_options.forEach(option => {
+    //   option.disabled = option.value == $scope.driver_data.cab ? false : true;
+    // });
+    cab_select.addEventListener('change', function() {
+      cab_check.innerText =
+        cab_select.value == $scope.driver_data.cab
+          ? ((cab_check.style.color = '#24d224'),
+            showfare($scope.driver_data.cab),
+            'Available!')
+          : ((cab_check.style.color = '#da2215'), 'Not Available');
     });
   };
 });

@@ -37,19 +37,42 @@
   </div>
 </div>
 
-<div id="book-modal" class="modal black">
+<div id="book-modal" class="modal black container">
   <div class="modal-content">
-    <div class="input-field">
-      <i class="material-icons prefix">local_taxi</i>
-      <select>
-        <option value="" disabled selected>Choose Cab Type</option>
-        <option value="Micro">Micro</option>
-        <option value="Mini">Mini</option>
-        <option value="Prime Sedan">Prime Sedan</option>
-        <option value="Prime SUV">Prime SUV</option>
-      </select>
-      <!-- <label for="driverCab">Choose Cab Type</label> -->
+    <div class="row">
+      <div class="input-field col s8">
+        <i class="material-icons prefix">local_taxi</i>
+        <select>
+          <option value="" disabled selected>Choose Cab Type</option>
+          <option value="Micro">Micro</option>
+          <option value="Mini">Mini</option>
+          <option value="Prime Sedan">Prime Sedan</option>
+          <option value="Prime SUV">Prime SUV</option>
+        </select>
+        <!-- <label for="driverCab">Choose Cab Type</label> -->
+      </div>
+      <div class="col s4">
+        <p style="color:white; font-size: 1.7rem; padding: 0 2rem; margin-top: 17px;">Cab Availability</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s8">
+        <table class="centered white-text">
+          <thead>
+            <th>Cab Type</th>
+            <th>Rate</th>
+            <th>Distance</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{tariff_active.cabType}}</td>
+              <td>{{}}</td>
+              <td>{{}}</td>
+            </tr>
+          </tbody>
+          <tfoot></tfoot>
+        </table>
+      </div>
     </div>
   </div>
-
 </div>
