@@ -33,6 +33,18 @@ io.on('connection', function(socket) {
     });
   });
 
+  socket.on('user connected', function(data) {
+    socket.broadcast.emit('user connected', { user: data.user });
+  });
+
+  socket.on('book info', function(data) {
+    socket.broadcast.emit('book info', {
+      user: data.user,
+      pickup: data.pickup,
+      fare: data.fare,
+      destination: data.destination
+    });
+  });
   socket.on('disconnect', function(data) {
     console.log('no user');
   });

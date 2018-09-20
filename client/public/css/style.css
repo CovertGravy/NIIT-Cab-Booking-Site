@@ -59,6 +59,10 @@ textarea.materialize-textarea {
   height: 80vh;
 }
 
+#book-modal table {
+  box-shadow: inset 0px 0px 20px 4px #ffff0087;
+}
+
 #book-modal .input-field .prefix {
   left: 15px;
 }
@@ -68,6 +72,11 @@ textarea.materialize-textarea {
   padding-left: 30px;
 }
 
+#book-modal table thead th,
+#book-modal table tbody tr > td[colspan='3'] {
+  border-radius: 0;
+  padding: 5px;
+}
 /* #endregion book.html */
 
 /* #region tariff.html */

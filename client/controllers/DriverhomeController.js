@@ -39,11 +39,25 @@ angular
 
             // socket send driver location
             const socket = io.connect('http://localhost:3000');
+            socket.on('user connected', function(data) {
+              console.log(data);
+              socket.emit('drivers location', {
+                lat: coords.lat,
+                lng: coords.lng,
+                email: $rootScope.currentUser.email,
+                cab: $scope.cab
+              });
+            });
+
             socket.emit('drivers location', {
               lat: coords.lat,
               lng: coords.lng,
               email: $rootScope.currentUser.email,
               cab: $scope.cab
+            });
+
+            socket.on('book info', function(data) {
+              console.log(data);
             });
 
             // reverse geocoder for current navigator position

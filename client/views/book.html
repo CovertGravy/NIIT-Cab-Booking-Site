@@ -3,7 +3,7 @@
     <div class="col s12 m7 card grey lighten-1">
       <h3>Google Map</h3>
       <div id="map" class="z-depth-1" ng-init="initMap()"></div>
-      <button ng-show="proceed" ng-click='check_cabs()' class="btn blue" id="ride_now">Ride
+      <button ng-show="proceed" ng-click='check_cabs()' class="btn blue waves-effect waves-blue-darken-2" id="ride_now">Ride
         Now</button>
       <button ng-show="proceed" class="btn orange" id="ride_later">Ride Later</button>
     </div>
@@ -52,26 +52,37 @@
         <!-- <label for="driverCab">Choose Cab Type</label> -->
       </div>
       <div class="col s4">
-        <p style="color:white; font-size: 1.7rem; padding: 0 2rem; margin-top: 17px;">Cab Availability</p>
+        <p class="flow-text" style="color:white; text-align: center; font-size: 1.5rem; padding: 0 2rem; margin-top: 17px;"></p>
       </div>
     </div>
-    <div class="row">
-      <div class="col s8">
+    <div class="row" style="margin-bottom: 60px;">
+      <div class="col s8 offset-s2">
         <table class="centered white-text">
-          <thead>
+          <thead class="yellow black-text">
             <th>Cab Type</th>
             <th>Rate</th>
             <th>Distance</th>
           </thead>
           <tbody>
             <tr>
-              <td>{{tariff_active.cabType}}</td>
-              <td>{{}}</td>
-              <td>{{}}</td>
+              <td>{{tariff_active.cabType ? tariff_active.cabType : 'N/A'}}</td>
+              <td>{{tariff_active.rateActive ? '₹ '+tariff_active.rateActive+'/km' : 'N/A'}}</td>
+              <td>{{tariff_active.distance ? tariff_active.distance : 'N/A'}}</td>
+            </tr>
+            <tr>
+              <td colspan="3" class="yellow black-text">
+                <span style="font-size: 1.5rem;">Total Fare :</span>
+                <span style="font-size: 2rem; padding: 5px; font-weight: 500;">{{tariff_active.totalFare ? '₹
+                  '+tariff_active.totalFare: 'N/A'}}</span></td>
             </tr>
           </tbody>
-          <tfoot></tfoot>
         </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s6 offset-s3">
+        <button ng-click='book_confirm()' class="btn black yellow-text left waves-effect waves-yellow" style="border: 1px solid yellow; font-weight:500;">confirm</button>
+        <button class="btn black yellow-text right modal-close waves-effect waves-yellow" style="border: 1px solid yellow">cancel</button>
       </div>
     </div>
   </div>

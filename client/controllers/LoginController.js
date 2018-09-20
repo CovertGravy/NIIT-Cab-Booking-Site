@@ -28,10 +28,10 @@ angular
       console.log($scope.login_credential);
       let { email, password } = $scope.login_credential;
       email == ''
-        ? M.toast({ html: 'Enter your email', displayLenth: 1000 })
+        ? M.toast({ html: 'Enter your email', displayLength: 1000 })
         : (email = true);
       password == ''
-        ? M.toast({ html: 'Enter your password', displayLenth: 1000 })
+        ? M.toast({ html: 'Enter your password', displayLength: 1000 })
         : (password = true);
 
       if (email && password) {
