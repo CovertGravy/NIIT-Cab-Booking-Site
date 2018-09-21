@@ -2,6 +2,11 @@ angular
   .module('myApp')
   .controller('DriverhomeController', function($scope, $http, $rootScope) {
     let email = $rootScope.currentUser.email;
+    const socket = io.connect('http://localhost:3000');
+    const elems = document.querySelectorAll('.modal');
+    const ride_modal = document.querySelector('#ride-info');
+    const instances = M.Modal.init(elems);
+    const ride_info_instance = M.Modal.getInstance(ride_modal);
     console.log(email);
     $http
       .get(`/showDriver/${email}`)
@@ -38,7 +43,6 @@ angular
             });
 
             // socket send driver location
-            const socket = io.connect('http://localhost:3000');
             socket.on('user connected', function(data) {
               console.log(data);
               socket.emit('drivers location', {
@@ -54,10 +58,6 @@ angular
               lng: coords.lng,
               email: $rootScope.currentUser.email,
               cab: $scope.cab
-            });
-
-            socket.on('book info', function(data) {
-              console.log(data);
             });
 
             // reverse geocoder for current navigator position
@@ -112,4 +112,11 @@ angular
           }
         })
       );
+
+    socket.on('book info', function(data) {
+      console.log(data);
+      $scope.ride_data = data;
+      $scope.$apply();
+      !ride_info_instance.isOpen ? ride_info_instance.open() : false;
+    });
   });

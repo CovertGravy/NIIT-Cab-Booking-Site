@@ -217,3 +217,22 @@ textarea {
   margin: 1em;
 }
 /* #endregion profile.html */
+
+/* #region driverhome.html */
+
+#ride-info {
+  max-height: 55%;
+}
+
+#ride-info .card.yellow {
+  height: 250px;
+}
+
+#ride-info .tag {
+  font-weight: 700;
+}
+
+#ride-info .tag + p {
+  margin: 5px;
+}
+/* #endregion driverhome.html */

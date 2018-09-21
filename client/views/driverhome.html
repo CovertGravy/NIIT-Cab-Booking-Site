@@ -27,3 +27,56 @@
     </div>
   </div>
 </div>
+
+<!-- ride info modal -->
+<div id="ride-info" class="modal black bottom-sheet">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s6">
+        <div class="card yellow">
+          <div class="card-content black-text">
+            <span class="card-title">Customer details<i class="material-icons right">account_box</i></span>
+            <div class="card black">
+              <div class="card-content white-text">
+                <div>
+                  <span class="tag">Name</span>
+                  <span class="right">{{ride_data.user.firstname + ' ' + ride_data.user.lastname}}</span>
+                </div>
+                <div>
+                  <span class="tag">Mobile</span>
+                  <span class="right">{{ride_data.user.contact}}</span>
+                </div>
+                <div>
+                  <span class="tag">Email</span>
+                  <span class="right">{{ride_data.user.email}}</span>
+                </div>
+              </div>
+            </div>
+            <p style="text-align: center; font-size: 2rem; margin-top: 0;">Total Fare: ₹{{ride_data.fare}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col s6">
+        <div class="card yellow">
+          <div class="card-content black-text">
+            <span class="card-title">Ride Info<i class="material-icons right">directions</i></span>
+            <div class="card black">
+              <div class="card-content white-text">
+                <div>
+                  <span class="tag">Pickup:</span>
+                  <p>{{ride_data.pickup}}</p>
+                </div>
+                <div>
+                  <span class="tag">Destination:</span>
+                  <p>{{ride_data.destination}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn black yellow-text right" style="border: 1px solid yellow;">confirm</button>
+    <button class="btn black yellow-text right">cancel</button>
+  </div>
+</div>
