@@ -12,7 +12,7 @@ angular
       .get(`/showDriver/${email}`)
       .then(response => {
         console.log(response.data);
-        $scope.cab = response.data[0].driverCab;
+        $scope.driver = response.data[0];
       })
       .then(
         ($scope.initMap = function() {
@@ -49,7 +49,7 @@ angular
                 lat: coords.lat,
                 lng: coords.lng,
                 email: $rootScope.currentUser.email,
-                cab: $scope.cab
+                cab: $scope.driver.driverCab
               });
             });
 
@@ -57,7 +57,7 @@ angular
               lat: coords.lat,
               lng: coords.lng,
               email: $rootScope.currentUser.email,
-              cab: $scope.cab
+              cab: $scope.driver.driverCab
             });
 
             // reverse geocoder for current navigator position
@@ -88,7 +88,7 @@ angular
                 lat: newPos.lat,
                 lng: newPos.lng,
                 email: $rootScope.currentUser.email,
-                cab: $scope.cab
+                cab: $scope.driver.driverCab
               });
               geocoder.geocode({ location: newPos }, function(results, status) {
                 if (status === 'OK') {
@@ -118,5 +118,12 @@ angular
       $scope.ride_data = data;
       $scope.$apply();
       !ride_info_instance.isOpen ? ride_info_instance.open() : false;
+
+      socket.emit('driver info', {
+        driver: $scope.driver,
+        pickup: $scope.ride_data.pickup,
+        destination: $scope.ride_data.destination,
+        fare: $scope.ride_data.fare
+      });
     });
   });

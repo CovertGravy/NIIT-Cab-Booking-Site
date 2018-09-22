@@ -5,7 +5,7 @@
       <div id="map" class="z-depth-1" ng-init="initMap()"></div>
       <button ng-show="proceed" ng-click='check_cabs()' class="btn blue waves-effect waves-blue-darken-2" id="ride_now">Ride
         Now</button>
-      <button ng-show="proceed" class="btn orange" id="ride_later">Ride Later</button>
+      <button ng-show="proceed" class="btn orange waves-effect waves-red" id="ride_later">Ride Later</button>
     </div>
     <div class="col s12 m5">
       <div class="home-info card black">
@@ -31,12 +31,11 @@
           </div>
         </div>
       </div>
-
-      <!-- <p>Distance <span id="distance" class="blue badge white-text"></span></p> -->
     </div>
   </div>
 </div>
 
+<!-- modal book -->
 <div id="book-modal" class="modal black container">
   <div class="modal-content">
     <div class="row">
@@ -85,5 +84,62 @@
         <button class="btn black yellow-text right modal-close waves-effect waves-yellow" style="border: 1px solid yellow">cancel</button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- driver info modal -->
+<div id="driver-info" class="modal black bottom-sheet">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s6">
+        <div class="card yellow">
+          <div class="card-content black-text">
+            <span class="card-title">Ride details<i class="material-icons right">directions_car</i></span>
+            <div class="card black">
+              <div class="card-content white-text">
+                <div>
+                  <span class="tag">Driver Name</span>
+                  <span class="right">{{ride_info.driver.firstname + ' ' + ride_info.driver.lastname}}</span>
+                </div>
+                <div>
+                  <span class="tag">Mobile</span>
+                  <span class="right">{{ride_info.driver.contact}}</span>
+                </div>
+                <div>
+                  <span class="tag">Cab Type</span>
+                  <span class="right">{{ride_info.driver.driverCab}}</span>
+                </div>
+                <div>
+                  <span class="tag">Registeration No.</span>
+                  <span class="right">{{ride_info.driver.cabRegister}}</span>
+                </div>
+              </div>
+            </div>
+            <p style="text-align: center; font-size: 2rem; margin-top: 0;">Total Fare: ₹{{ride_info.fare}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col s6">
+        <div class="card yellow">
+          <div class="card-content black-text">
+            <span class="card-title">Ride Info<i class="material-icons right">directions</i></span>
+            <div class="card black">
+              <div class="card-content white-text">
+                <div>
+                  <span class="tag">Pickup:</span>
+                  <p>{{ride_info.pickup}}</p>
+                </div>
+                <div>
+                  <span class="tag">Destination:</span>
+                  <p>{{ride_info.destination}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn black yellow-text waves-effect waves-yellow right" style="border: 1px solid yellow;">confirm</button>
+    <button class="btn black yellow-text waves-effect waves-yellow right">cancel</button>
   </div>
 </div>

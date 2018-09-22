@@ -77,6 +77,22 @@ textarea.materialize-textarea {
   border-radius: 0;
   padding: 5px;
 }
+
+#driver-info {
+  max-height: 55%;
+}
+
+#driver-info .card.yellow {
+  height: 250px;
+}
+
+#driver-info .tag {
+  font-weight: 700;
+}
+
+#driver-info .tag + p {
+  margin: 5px;
+}
 /* #endregion book.html */
 
 /* #region tariff.html */

@@ -13,8 +13,10 @@ angular
     const socket = io.connect('http://localhost:3000');
     const elems = document.querySelectorAll('.modal');
     const book_modal = document.querySelector('#book-modal');
+    const driver_info = document.querySelector('#driver-info');
     const instances = M.Modal.init(elems);
     const book_modal_instance = M.Modal.getInstance(book_modal);
+    const driver_info_instance = M.Modal.getInstance(driver_info);
     const cab_options = document.querySelectorAll('option');
     const cab_select = document.querySelector('#book-modal select');
     const cab_check = document.querySelector('#book-modal div p');
@@ -308,11 +310,18 @@ angular
           destination
         });
         book_modal_instance.close();
-        $location.path('/');
+        // $location.path('/');
       } else if (cab_select.value == '') {
         M.toast({ html: 'Select a Cab', displayLength: 1000 });
       } else {
         M.toast({ html: 'Selected Cab Not Available', displayLength: 1000 });
       }
     };
+
+    socket.on('driver info', function(data) {
+      $scope.ride_info = data;
+      $scope.$apply();
+
+      !driver_info_instance.isOpen ? driver_info_instance.open() : false;
+    });
   });

@@ -45,6 +45,16 @@ io.on('connection', function(socket) {
       destination: data.destination
     });
   });
+
+  socket.on('driver info', function(data) {
+    socket.broadcast.emit('driver info', {
+      driver: data.driver,
+      pickup: data.pickup,
+      destination: data.destination,
+      fare: data.fare
+    });
+  });
+
   socket.on('disconnect', function(data) {
     console.log('no user');
   });
