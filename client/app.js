@@ -36,6 +36,10 @@ app.config(function($routeProvider, $locationProvider) {
       templateUrl: '/views/driverhome.html',
       controller: 'DriverhomeController'
     })
+    .when('/driverrides', {
+      templateUrl: '/views/driverrides.html',
+      controller: 'DriverridesController'
+    })
     .otherwise({
       redirectTo: '/'
     });
@@ -46,6 +50,9 @@ app.run(($cookies, $location, $http, $rootScope, AuthenticationService) => {
     AuthenticationService.Logout();
     $rootScope.loggedIn = false;
     $rootScope.role = null;
+    const socket = io.connect('http://localhost:3000');
+    socket.disconnect();
+    socket.emit('disconnect', { stat: 'not active' });
     $location.path('/login');
   };
 
@@ -62,7 +69,7 @@ app.run(($cookies, $location, $http, $rootScope, AuthenticationService) => {
     const public_pages = ['/', '/register', '/login', ''];
     const user_pages = ['/book', '/profile'];
     const admin_pages = ['/tariff', '/driver'];
-    const driver_pages = ['/driverhome'];
+    const driver_pages = ['/driverhome', '/driverrides'];
 
     const access = pages => pages.includes(current_path);
 

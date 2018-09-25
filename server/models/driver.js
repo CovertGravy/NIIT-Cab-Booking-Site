@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const driverSchema = mongoose.Schema({
   firstname: String,
@@ -12,4 +12,4 @@ const driverSchema = mongoose.Schema({
   cabRegister: String
 });
 
-module.exports = mongoose.model("driver", driverSchema);
+module.exports = mongoose.model('driver', driverSchema);

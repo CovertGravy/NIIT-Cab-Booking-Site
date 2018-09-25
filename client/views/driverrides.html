@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <table class="driverrides-table">
+        <thead>
+          <th>S No.</th>
+          <th>Customer Info</th>
+          <th>Pickup</th>
+          <th>Destination</th>
+          <th>Fare</th>
+          <th>Actions</th>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat="ride in rides">
+            <td>{{$index+1}}</td>
+            <td>{{ride.user.name}}</td>
+            <td>{{ride.pickup}}</td>
+            <td>{{ride.destination}}</td>
+            <td>{{ride.fare}}</td>
+            <td>
+              <!-- <span ng-click="showtariff(tariff._id)" style="cursor: pointer">
+                <i class="material-icons orange-text">menu</i>
+              </span>
+              <span ng-click="deletetariff(tariff._id)" style="cursor: pointer">
+                <i class="material-icons red-text">delete_forever</i>
+              </span> -->
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -27,6 +27,7 @@
   <script src="/controllers/LoginController.js"></script>
   <script src="/controllers/ProfileController.js"></script>
   <script src="/controllers/DriverhomeController.js"></script>
+  <script src="/controllers/DriverridesController.js"></script>
 
   <title>SinglePage Map</title>
 </head>
@@ -52,8 +53,11 @@
           <li>
             <a ng-if="role === 'user'" href="#/profile">Profile</a>
           </li>
-          <li>
+          <!-- <li>
             <a ng-if="role === 'driver'" href="#/driverhome">Ride</a>
+          </li> -->
+          <li>
+            <a ng-if="role === 'driver'" href="#/driverrides">My Rides</a>
           </li>
           <li>
             <a ng-if="role === 'admin'" href="#/tariff">Tariff</a>

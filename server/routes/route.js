@@ -7,7 +7,9 @@ const jwt = require('jsonwebtoken');
 const tariff = require('../models/tariff');
 const Driver = require('../models/driver');
 const user = require('../models/user');
+const ride = require('../models/ride');
 
+// #region tariff-api
 //////////////////
 // ?Tariff APIs //
 //////////////////
@@ -88,7 +90,9 @@ router.delete('/deletetariff/:id', (req, res) => {
     }
   );
 });
+// #endregion tariff-api
 
+// #region driver-api
 //////////////////
 // ?Driver APIs //
 //////////////////
@@ -169,6 +173,9 @@ router.delete('/deleteDriver/:id', (req, res) => {
     }
   );
 });
+// #endregion driver-api
+
+// #region user-api
 
 //////////////////
 // ?user APIs //
@@ -269,5 +276,96 @@ router.delete('/deleteuser/:id', (req, res) => {
     }
   );
 });
+// #endregion user-api
 
+// #region ride-api
+//////////////////
+// ?Ride APIs //
+//////////////////
+router.post('/addride', (req, res) => {
+  let newRide = new ride(req.body);
+
+  newRide.save((err, doc) => {
+    if (err) {
+      throw err;
+    } else {
+      res.json({
+        success: true,
+        message: 'Record added!'
+      });
+    }
+  });
+});
+
+router.get('/showride', (req, res) => {
+  ride.find({}, (err, data) => {
+    if (err) {
+      throw err;
+    } else {
+      res.json(data);
+    }
+  });
+});
+
+router.get('/showride/:email', (req, res) => {
+  ride.find(
+    {
+      $or: [
+        { 'customer.email': req.params.email },
+        { 'driver.email': req.params.email }
+      ]
+    },
+    (err, data) => {
+      if (err) {
+        throw err;
+      } else {
+        res.json(data);
+      }
+    }
+  );
+});
+
+router.put('/updateride/:email', (req, res) => {
+  tariff.findOneAndUpdate(
+    {
+      $or: [
+        { 'customer.email': req.params.email },
+        { 'driver.email': req.params.email }
+      ]
+    },
+    req.body,
+    (err, doc) => {
+      if (err) {
+        throw err;
+      } else {
+        res.json({
+          success: true,
+          message: 'Tariff updated successfully'
+        });
+      }
+    }
+  );
+});
+
+router.delete('/deleteride/:email', (req, res) => {
+  tariff.findOneAndRemove(
+    {
+      $or: [
+        { 'customer.email': req.params.email },
+        { 'driver.email': req.params.email }
+      ]
+    },
+    (err, doc) => {
+      if (err) {
+        throw err;
+      } else {
+        res.json({
+          success: true,
+          message: 'Record Successfully Deleted'
+        });
+      }
+    }
+  );
+});
+// #endregion ride-api
 module.exports = router;

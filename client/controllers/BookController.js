@@ -182,7 +182,7 @@ angular
           $scope.$apply();
           if (driver_marker_array.includes(driver_marker)) {
             driver_marker.setMap(null);
-            driver_marker = [];
+            driver_marker_array = [];
           }
           driver_marker = new google.maps.Marker({
             position: {
@@ -194,6 +194,13 @@ angular
             draggable: true
           });
           driver_marker_array.push(driver_marker);
+        });
+
+        socket.on('no driver', function(data) {
+          console.log(data);
+          $scope.driver_status = data.stat;
+          driver_marker ? driver_marker.setMap(null) : false;
+          $scope.driver_data = null;
         });
         markerArray.push(marker);
 
@@ -299,6 +306,11 @@ angular
     };
 
     $scope.book_confirm = function() {
+      if (!$scope.driver_data) {
+        M.toast({ html: 'No Cabs', displayLength: 1000 });
+        book_modal_instance.close();
+        return;
+      }
       if (cab_select.value == $scope.driver_data.cab) {
         let pickup = document.querySelector('#pos-input').value;
         let fare = $scope.tariff_active.totalFare;

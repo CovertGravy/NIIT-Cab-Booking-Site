@@ -1,6 +1,11 @@
 angular
   .module('myApp')
-  .controller('DriverhomeController', function($scope, $http, $rootScope) {
+  .controller('DriverhomeController', function(
+    $scope,
+    $http,
+    $rootScope,
+    $location
+  ) {
     let email = $rootScope.currentUser.email;
     const socket = io.connect('http://localhost:3000');
     const elems = document.querySelectorAll('.modal');
@@ -112,6 +117,41 @@ angular
           }
         })
       );
+
+    $scope.ride_accept = function() {
+      console.log($scope.ride_data);
+      console.log($scope.driver);
+      const {
+        email: d_email,
+        contact: d_contact,
+        firstname: d_firstname,
+        lastname: d_lastname
+      } = $scope.driver;
+      const { email, contact, firstname, lastname } = $scope.ride_data.user;
+      const { pickup, destination, fare } = $scope.ride_data;
+      const ride = {
+        driver: {
+          contact: d_contact,
+          email: d_email,
+          name: `${d_firstname} ${d_lastname}`
+        },
+        pickup,
+        destination,
+        fare,
+        customer: {
+          email,
+          name: `${firstname} ${lastname}`,
+          contact
+        },
+        ongoing: true
+      };
+      if (ride) {
+        $http.post('/addride', ride).then(response => {
+          console.log(response);
+          $location.path('/driverrides');
+        });
+      }
+    };
 
     socket.on('book info', function(data) {
       console.log(data);

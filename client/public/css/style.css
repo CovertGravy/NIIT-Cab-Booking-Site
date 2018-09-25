@@ -252,3 +252,22 @@ textarea {
   margin: 5px;
 }
 /* #endregion driverhome.html */
+
+/* #region driverrides.html */
+.driverrides-table {
+  background-color: #000000e3;
+  color: whitesmoke;
+  border-radius: 1em;
+  margin-top: 2rem;
+}
+
+.driverrides-table thead {
+  color: #ffeb3b;
+  font-size: 1.1em;
+}
+
+.driverrides-table thead tr th,
+.driverrides-table tbody tr td {
+  text-align: center;
+}
+/* #endregion driverrides.html */
