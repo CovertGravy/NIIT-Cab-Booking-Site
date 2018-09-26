@@ -4,28 +4,26 @@
       <table class="driverrides-table">
         <thead>
           <th>S No.</th>
-          <th>Customer Info</th>
+          <th>Date</th>
+          <th>Time</th>
           <th>Pickup</th>
           <th>Destination</th>
           <th>Fare</th>
-          <th>Actions</th>
+          <th>Status</th>
         </thead>
 
         <tbody>
           <tr ng-repeat="ride in rides">
             <td>{{$index+1}}</td>
-            <td>{{ride.user.name}}</td>
+            <td>{{ride.date}}</td>
+            <td>{{ride.time}}</td>
             <td>{{ride.pickup}}</td>
             <td>{{ride.destination}}</td>
-            <td>{{ride.fare}}</td>
+            <td>₹{{ride.fare}}</td>
             <td>
-              <!-- <span ng-click="showtariff(tariff._id)" style="cursor: pointer">
-                <i class="material-icons orange-text">menu</i>
-              </span>
-              <span ng-click="deletetariff(tariff._id)" style="cursor: pointer">
-                <i class="material-icons red-text">delete_forever</i>
-              </span> -->
-
+              {{ride.ongoing ? 'ongoing' : 'over'}}
+              <button ng-if='ride.ongoing' ng-click='endride(ride._id)' class="btn btn-small red white-text waves-effect waves-black">end
+                ride</button>
             </td>
           </tr>
         </tbody>

@@ -1,3 +1,5 @@
+'use strict';
+
 angular
   .module('myApp')
   .controller('DriverhomeController', function(
@@ -129,6 +131,9 @@ angular
       } = $scope.driver;
       const { email, contact, firstname, lastname } = $scope.ride_data.user;
       const { pickup, destination, fare } = $scope.ride_data;
+      const d = new Date();
+      const date = `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`;
+      const time = `${d.getHours()}:${d.getMinutes()}`;
       const ride = {
         driver: {
           contact: d_contact,
@@ -138,6 +143,8 @@ angular
         pickup,
         destination,
         fare,
+        date,
+        time,
         customer: {
           email,
           name: `${firstname} ${lastname}`,
@@ -165,5 +172,11 @@ angular
         destination: $scope.ride_data.destination,
         fare: $scope.ride_data.fare
       });
+    });
+
+    $scope.$on('$locationChangeSuccess', function() {
+      console.log('changed!!');
+      socket.disconnect();
+      socket.emit('disconnect', { stat: 'not active' });
     });
   });

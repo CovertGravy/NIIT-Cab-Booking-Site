@@ -50,9 +50,9 @@ app.run(($cookies, $location, $http, $rootScope, AuthenticationService) => {
     AuthenticationService.Logout();
     $rootScope.loggedIn = false;
     $rootScope.role = null;
-    const socket = io.connect('http://localhost:3000');
-    socket.disconnect();
-    socket.emit('disconnect', { stat: 'not active' });
+    // const socket = io.connect('http://localhost:3000');
+    // socket.disconnect();
+    // socket.emit('disconnect', { stat: 'not active' });
     $location.path('/login');
   };
 

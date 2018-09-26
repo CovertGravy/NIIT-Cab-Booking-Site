@@ -14,6 +14,8 @@ const ridesSchema = mongoose.Schema({
   pickup: String,
   destination: String,
   fare: String,
+  date: String,
+  time: String,
   ongoing: Boolean
 });
 

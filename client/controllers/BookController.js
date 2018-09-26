@@ -1,3 +1,5 @@
+'use strict';
+
 angular
   .module('myApp')
   .controller('BookController', function($scope, $http, $rootScope, $location) {

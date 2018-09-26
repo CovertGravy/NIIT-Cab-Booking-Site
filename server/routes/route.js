@@ -325,13 +325,10 @@ router.get('/showride/:email', (req, res) => {
   );
 });
 
-router.put('/updateride/:email', (req, res) => {
+router.put('/updateride/:id', (req, res) => {
   tariff.findOneAndUpdate(
     {
-      $or: [
-        { 'customer.email': req.params.email },
-        { 'driver.email': req.params.email }
-      ]
+      _id: req.params.id
     },
     req.body,
     (err, doc) => {
