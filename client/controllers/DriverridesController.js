@@ -12,7 +12,7 @@ angular
       if (email) {
         $http.get(`/showride/${email}`).then(response => {
           console.log(response.data);
-          $scope.rides = response.data;
+          $scope.rides = response.data.reverse();
         });
       }
     };
@@ -61,13 +61,13 @@ angular
             ongoing: false
           };
           console.log(ride_update);
-          if (response) {
-            console.log(ride_update.ongoing);
-            $http.put(`/updateride/${id}`, ride_update).then(response => {
-              console.log(response);
-              init();
-            });
-          }
+          return ride_update;
+        })
+        .then(response => {
+          $http.put(`/updateride/${id}`, response).then(response => {
+            console.log(response);
+            init();
+          });
         });
     };
   });

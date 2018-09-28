@@ -2,10 +2,27 @@
 
 angular
   .module('myApp')
-  .controller('BookController', function($scope, $http, $rootScope, $location) {
+  .controller('BookController', function(
+    $scope,
+    $http,
+    $rootScope,
+    $location,
+    $cookies
+  ) {
     $scope.proceed = false;
     $scope.driver_data = null;
     $scope.tariff_active = null;
+
+    let ride_status;
+    const user = $cookies.getObject('authUser');
+    const { email } = user;
+    console.log(email);
+    $http.get(`/showride/${email}`).then(response => {
+      const rides = response.data.reverse();
+      console.log(rides);
+      ride_status = rides[0].ongoing;
+      console.log(ride_status);
+    });
 
     $http.get('/showtariff').then(res => {
       $scope.tariff_data = res.data;
@@ -291,9 +308,14 @@ angular
     };
 
     $scope.check_cabs = function() {
-      $scope.driver_data
+      $scope.driver_data && !ride_status
         ? book_modal_instance.open()
-        : M.toast({ html: 'No Cabs Available', displayLength: 1000 });
+        : ride_status
+          ? M.toast({ html: 'Ride ongoing!', displayLength: 1000 })
+          : M.toast({
+              html: 'No Cabs Available',
+              displayLength: 1000
+            });
 
       console.log(cab_options);
 

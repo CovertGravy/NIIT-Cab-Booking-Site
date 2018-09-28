@@ -326,7 +326,7 @@ router.get('/showride/:email', (req, res) => {
 });
 
 router.put('/updateride/:id', (req, res) => {
-  tariff.findOneAndUpdate(
+  ride.findOneAndUpdate(
     {
       _id: req.params.id
     },
@@ -345,7 +345,7 @@ router.put('/updateride/:id', (req, res) => {
 });
 
 router.delete('/deleteride/:email', (req, res) => {
-  tariff.findOneAndRemove(
+  ride.findOneAndRemove(
     {
       $or: [
         { 'customer.email': req.params.email },

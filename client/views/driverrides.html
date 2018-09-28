@@ -20,10 +20,11 @@
             <td>{{ride.pickup}}</td>
             <td>{{ride.destination}}</td>
             <td>₹{{ride.fare}}</td>
-            <td>
-              {{ride.ongoing ? 'ongoing' : 'over'}}
-              <button ng-if='ride.ongoing' ng-click='endride(ride._id)' class="btn btn-small red white-text waves-effect waves-black">end
-                ride</button>
+            <td style="position:relative;">
+              <span class="badge white-text" ng-class="{red: ride.ongoing == false, green: ride.ongoing == true}">{{ride.ongoing
+                ? 'ongoing' : 'over'}}</span>
+              <button ng-if='ride.ongoing' ng-click='endride(ride._id)' class="btn btn-small orange white-text pulse waves-effect waves-black"
+                style="position:absolute; top:30%; left:110%;">end</button>
             </td>
           </tr>
         </tbody>
