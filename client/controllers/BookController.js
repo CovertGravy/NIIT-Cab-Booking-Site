@@ -13,24 +13,6 @@ angular
     $scope.driver_data = null;
     $scope.tariff_active = null;
 
-    let ride_status;
-    const user = $cookies.getObject('authUser');
-    const { email } = user;
-    console.log(email);
-    $http.get(`/showride/${email}`).then(response => {
-      if (response.data.length != 0) {
-        const rides = response.data.reverse();
-        console.log(rides);
-        ride_status = rides[0].ongoing;
-        console.log(ride_status);
-      }
-    });
-
-    $http.get('/showtariff').then(res => {
-      $scope.tariff_data = res.data;
-      console.log($scope.tariff_data);
-    });
-
     const socket = io.connect('http://localhost:3000');
     const elems = document.querySelectorAll('.modal');
     const book_modal = document.querySelector('#book-modal');
@@ -41,6 +23,28 @@ angular
     const cab_options = document.querySelectorAll('option');
     const cab_select = document.querySelector('#book-modal select');
     const cab_check = document.querySelector('#book-modal div p');
+    const taps = document.querySelector('.tap-target');
+    const tap_init = M.TapTarget.init(taps);
+    const tap = M.TapTarget.getInstance(taps);
+
+    let ride_status;
+    const user = $cookies.getObject('authUser');
+    const { email } = user;
+    console.log(email);
+    $http.get(`/showride/${email}`).then(response => {
+      if (response.data.length != 0) {
+        const rides = response.data.reverse();
+        console.log(rides);
+        ride_status = rides[0].ongoing;
+        console.log(ride_status);
+        ride_status ? tap.open() : false;
+      }
+    });
+
+    $http.get('/showtariff').then(res => {
+      $scope.tariff_data = res.data;
+      console.log($scope.tariff_data);
+    });
 
     $scope.initMap = function() {
       // ----------------- naviagtor GPS ----------------------
@@ -328,10 +332,7 @@ angular
             !ride_status && !response
               ? book_modal_instance.open()
               : ride_status
-                ? M.toast({
-                    html: 'Your Ride is Ongoing!',
-                    displayLength: 1000
-                  })
+                ? tap.open()
                 : response
                   ? M.toast({ html: 'Cab is in a Ride!', displayLength: 1000 })
                   : false;

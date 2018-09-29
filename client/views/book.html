@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" style="margin-bottom:0;">
     <div class="col s12 m7 card grey lighten-1">
       <h3>Google Map</h3>
       <div id="map" class="z-depth-1" ng-init="initMap()"></div>
@@ -140,6 +140,13 @@
       </div>
     </div>
     <button class="btn black yellow-text waves-effect waves-yellow modal-close right" style="border: 1px solid yellow;">OK</button>
-    <!-- <button class="btn black yellow-text waves-effect waves-yellow right">cancel</button> -->
+  </div>
+</div>
+
+<a id="notify" style="left:95%" class="black waves-effect waves-light btn btn-floating"><i class="material-icons">menu</i></a>
+<!-- Tap Target Structure -->
+<div class="tap-target yellow" data-target="notify">
+  <div class="tap-target-content">
+    <h2 style="margin-bottom:50px; text-align:center; width:280px; float:right;">Your ride is currently ongoing!</h2>
   </div>
 </div>
