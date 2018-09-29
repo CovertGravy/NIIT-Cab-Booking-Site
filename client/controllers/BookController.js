@@ -18,10 +18,12 @@ angular
     const { email } = user;
     console.log(email);
     $http.get(`/showride/${email}`).then(response => {
-      const rides = response.data.reverse();
-      console.log(rides);
-      ride_status = rides[0].ongoing;
-      console.log(ride_status);
+      if (response.data.length != 0) {
+        const rides = response.data.reverse();
+        console.log(rides);
+        ride_status = rides[0].ongoing;
+        console.log(ride_status);
+      }
     });
 
     $http.get('/showtariff').then(res => {
@@ -194,7 +196,7 @@ angular
         let driver_marker;
         let driver_marker_array = [];
         let icon = 'http://maps.google.com/mapfiles/ms/micons/cabs.png';
-        socket.emit('user connected', { user: $rootScope.currentUser.email });
+        socket.emit('user connected', { user: email });
         socket.on('drivers location', function(data) {
           console.log(data);
           $scope.driver_data = data;
@@ -308,15 +310,35 @@ angular
     };
 
     $scope.check_cabs = function() {
-      $scope.driver_data && !ride_status
-        ? book_modal_instance.open()
-        : ride_status
-          ? M.toast({ html: 'Ride ongoing!', displayLength: 1000 })
-          : M.toast({
-              html: 'No Cabs Available',
-              displayLength: 1000
-            });
-
+      if ($scope.driver_data) {
+        $http
+          .get(`/showride/${$scope.driver_data.email}`)
+          .then(response => {
+            if (response.data.length != 0) {
+              const rides = response.data.reverse();
+              console.log(rides);
+              const driver_ride_status = rides[0].ongoing;
+              console.log(driver_ride_status);
+              return driver_ride_status;
+            } else {
+              return false;
+            }
+          })
+          .then(response => {
+            !ride_status && !response
+              ? book_modal_instance.open()
+              : ride_status
+                ? M.toast({
+                    html: 'Your Ride is Ongoing!',
+                    displayLength: 1000
+                  })
+                : response
+                  ? M.toast({ html: 'Cab is in a Ride!', displayLength: 1000 })
+                  : false;
+          });
+      } else {
+        M.toast({ html: 'No Cabs Available', displayLength: 1000 });
+      }
       console.log(cab_options);
 
       cab_select.addEventListener('change', function() {
@@ -340,7 +362,7 @@ angular
         let fare = $scope.tariff_active.totalFare;
         let destination = $scope.tariff_active.destination;
         socket.emit('book info', {
-          user: $rootScope.currentUser,
+          user,
           pickup,
           fare,
           destination

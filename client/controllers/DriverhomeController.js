@@ -6,17 +6,19 @@ angular
     $scope,
     $http,
     $rootScope,
-    $location
+    $location,
+    $cookies
   ) {
-    let email = $rootScope.currentUser.email;
+    const user = $cookies.getObject('authUser');
+    const { email: driver_email } = user;
     const socket = io.connect('http://localhost:3000');
     const elems = document.querySelectorAll('.modal');
     const ride_modal = document.querySelector('#ride-info');
     const instances = M.Modal.init(elems);
     const ride_info_instance = M.Modal.getInstance(ride_modal);
-    console.log(email);
+    console.log(driver_email);
     $http
-      .get(`/showDriver/${email}`)
+      .get(`/showDriver/${driver_email}`)
       .then(response => {
         console.log(response.data);
         $scope.driver = response.data[0];
@@ -55,7 +57,7 @@ angular
               socket.emit('drivers location', {
                 lat: coords.lat,
                 lng: coords.lng,
-                email: $rootScope.currentUser.email,
+                email: driver_email,
                 cab: $scope.driver.driverCab
               });
             });
@@ -63,7 +65,7 @@ angular
             socket.emit('drivers location', {
               lat: coords.lat,
               lng: coords.lng,
-              email: $rootScope.currentUser.email,
+              email: driver_email,
               cab: $scope.driver.driverCab
             });
 
@@ -94,7 +96,7 @@ angular
               socket.emit('drivers location', {
                 lat: newPos.lat,
                 lng: newPos.lng,
-                email: $rootScope.currentUser.email,
+                email: driver_email,
                 cab: $scope.driver.driverCab
               });
               geocoder.geocode({ location: newPos }, function(results, status) {
