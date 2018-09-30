@@ -16,12 +16,26 @@ angular
     const ride_modal = document.querySelector('#ride-info');
     const instances = M.Modal.init(elems);
     const ride_info_instance = M.Modal.getInstance(ride_modal);
+    const taps = document.querySelector('.tap-target');
+    const tap_init = M.TapTarget.init(taps);
+    const tap = M.TapTarget.getInstance(taps);
+
     console.log(driver_email);
+    $http.get(`/showride/${driver_email}`).then(response => {
+      if (response.data.length != 0) {
+        const rides = response.data.reverse();
+        console.log(rides);
+        let ride_status = rides[0].ongoing;
+        console.log(ride_status);
+        ride_status ? tap.open() : false;
+      }
+    });
     $http
       .get(`/showDriver/${driver_email}`)
       .then(response => {
         console.log(response.data);
         $scope.driver = response.data[0];
+        return $scope.driver;
       })
       .then(
         ($scope.initMap = function() {

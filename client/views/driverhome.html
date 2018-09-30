@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" style="margin-bottom:0;">
     <div class="col s12 m7 card grey lighten-1">
       <h3>Google Map</h3>
       <div id="map" class="z-depth-1" ng-init="initMap()"></div>
@@ -16,9 +16,9 @@
       <div class="home-info card black">
         <div class="card-content white-text">
           <h4>Details</h4>
-          <p>Name: <span class="right">{{currentUser.firstname+' '+currentUser.lastname}}</span></p>
-          <p>Email: <span class="right">{{currentUser.email}}</span></p>
-          <p>Contact: <span class="right">{{currentUser.contact}}</span></p>
+          <p>Name: <span class="right">{{loggedIn.firstname+' '+loggedIn.lastname}}</span></p>
+          <p>Email: <span class="right">{{loggedIn.email}}</span></p>
+          <p>Contact: <span class="right">{{loggedIn.contact}}</span></p>
           <p>Cab: <span class="right">{{driver.driverCab}}</span></p>
         </div>
       </div>
@@ -77,5 +77,13 @@
     <button class="btn black yellow-text modal-close waves-effect waves-yellow right" style="border: 1px solid yellow;"
       ng-click='ride_accept()'>Accept</button>
     <button class="btn black yellow-text modal-close waves-effect waves-yellow right">Reject</button>
+  </div>
+</div>
+
+<a id="notify_driver" style="left:95%" class="black waves-effect waves-light btn btn-floating"><i class="material-icons">menu</i></a>
+<!-- Tap Target Structure -->
+<div class="tap-target yellow" data-target="notify_driver">
+  <div class="tap-target-content">
+    <h2 style="margin-bottom:50px; text-align:center; width:280px; float:right;">Your ride is currently ongoing!</h2>
   </div>
 </div>
