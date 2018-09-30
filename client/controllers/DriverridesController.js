@@ -26,9 +26,9 @@ angular
           console.log(response.data);
           const rides = response.data;
           let ride_to_update;
-          rides.forEach(
-            ride => (ride_to_update = ride._id == id ? ride : null)
-          );
+          rides.forEach(ride => {
+            ride._id == id ? (ride_to_update = ride) : false;
+          });
           return ride_to_update;
         })
         .then(response => {

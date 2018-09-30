@@ -229,8 +229,13 @@ textarea {
   text-align: left;
 }
 
-.profile.container button {
-  margin: 1em;
+.profile.container .col.s4.rt h6 {
+  text-align: right;
+}
+
+.userrides-table thead tr th,
+.userrides-table tbody tr td {
+  text-align: center;
 }
 /* #endregion profile.html */
 
