@@ -93,6 +93,23 @@ textarea.materialize-textarea {
 #driver-info .tag + p {
   margin: 5px;
 }
+
+.overlay-preloader {
+  z-index: 99;
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.overlay-preloader .preloader-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
 /* #endregion book.html */
 
 /* #region tariff.html */
@@ -225,12 +242,37 @@ textarea {
 
 .profile.container h6 {
   margin: 1em;
-  padding: 0.4em;
+  padding: 0;
   text-align: left;
 }
 
 .profile.container .col.s4.rt h6 {
   text-align: right;
+  font-weight: bold;
+  font-family: 'Operator Mono';
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+.profile.container .col.s4.rt h6 span {
+  position: relative;
+}
+
+.profile.container .col.s4.rt h6 span::before,
+.profile.container .col.s4.rt h6 span::after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  left: 0;
+  border: solid 0.5px currentColor;
+}
+
+.profile.container .col.s4.rt h6 span::before {
+  top: 1px;
+}
+
+.profile.container .col.s4.rt h6 span::after {
+  bottom: 0;
 }
 
 .userrides-table thead tr th,

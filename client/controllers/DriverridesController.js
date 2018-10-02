@@ -2,7 +2,12 @@
 
 angular
   .module('myApp')
-  .controller('DriverridesController', function($scope, $http, $cookies) {
+  .controller('DriverridesController', function(
+    $scope,
+    $http,
+    $cookies,
+    $location
+  ) {
     const init = function() {
       console.log('init');
       const user = $cookies.getObject('authUser');
@@ -67,6 +72,10 @@ angular
           $http.put(`/updateride/${id}`, response).then(response => {
             console.log(response);
             init();
+            setTimeout(function() {
+              console.log('time');
+              $location.path('/');
+            }, 1000);
           });
         });
     };

@@ -171,6 +171,12 @@ angular
       if (ride) {
         $http.post('/addride', ride).then(response => {
           console.log(response);
+          socket.emit('driver info', {
+            driver: $scope.driver,
+            pickup: $scope.ride_data.pickup,
+            destination: $scope.ride_data.destination,
+            fare: $scope.ride_data.fare
+          });
           $location.path('/driverrides');
         });
       }
@@ -181,13 +187,6 @@ angular
       $scope.ride_data = data;
       $scope.$apply();
       !ride_info_instance.isOpen ? ride_info_instance.open() : false;
-
-      socket.emit('driver info', {
-        driver: $scope.driver,
-        pickup: $scope.ride_data.pickup,
-        destination: $scope.ride_data.destination,
-        fare: $scope.ride_data.fare
-      });
     });
 
     $scope.$on('$locationChangeSuccess', function() {

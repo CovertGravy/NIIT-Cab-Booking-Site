@@ -17,7 +17,14 @@ angular
     const elems = document.querySelectorAll('.modal');
     const book_modal = document.querySelector('#book-modal');
     const driver_info = document.querySelector('#driver-info');
-    const instances = M.Modal.init(elems);
+    const instances = M.Modal.init(elems, {
+      onCloseEnd: function() {
+        console.log(this.id);
+        this.id == 'driver-info'
+          ? ($location.path('/profile'), $scope.$apply())
+          : false;
+      }
+    });
     const book_modal_instance = M.Modal.getInstance(book_modal);
     const driver_info_instance = M.Modal.getInstance(driver_info);
     const cab_options = document.querySelectorAll('option');
@@ -26,6 +33,7 @@ angular
     const taps = document.querySelector('.tap-target');
     const tap_init = M.TapTarget.init(taps);
     const tap = M.TapTarget.getInstance(taps);
+    const preloader = document.querySelector('.overlay-preloader');
 
     let ride_status;
     const user = $cookies.getObject('authUser');
@@ -369,7 +377,7 @@ angular
           destination
         });
         book_modal_instance.close();
-        // $location.path('/');
+        preloader.style.display = 'block';
       } else if (cab_select.value == '') {
         M.toast({ html: 'Select a Cab', displayLength: 1000 });
       } else {
@@ -377,10 +385,17 @@ angular
       }
     };
 
+    let openModal = function() {
+      openModal = () => console.log('called again -_-');
+      setTimeout(() => {
+        preloader.style.display = 'none';
+        driver_info_instance.open();
+      }, 1000);
+    };
+
     socket.on('driver info', function(data) {
       $scope.ride_info = data;
       $scope.$apply();
-
-      !driver_info_instance.isOpen ? driver_info_instance.open() : false;
+      openModal();
     });
   });
