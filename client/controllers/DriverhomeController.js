@@ -182,6 +182,10 @@ angular
       }
     };
 
+    $scope.ride_reject = function() {
+      socket.emit('ride reject', { ride: 'reject' });
+    };
+
     socket.on('book info', function(data) {
       console.log(data);
       $scope.ride_data = data;

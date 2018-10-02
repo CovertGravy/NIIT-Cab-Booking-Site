@@ -285,6 +285,14 @@ angular
       }
     };
 
+    const calcTariff = (start, end, time) => {
+      const startArr = start.split(':');
+      const endArr = end.split(':');
+      const range0 = +startArr[0] * 60 + +startArr[1];
+      const range1 = +endArr[0] * 60 + +endArr[1];
+      console.log({ range0, time, range1 });
+      return time >= range0 && time <= range1;
+    };
     const showfare = cabtype => {
       $scope.tariff_data.forEach(tariff => {
         tariff.cabType == cabtype ? ($scope.tariff_active = tariff) : false;
@@ -295,17 +303,17 @@ angular
       let now = hours * 60 + minutes;
 
       if ($scope.tariff_active) {
-        let hhmm1 = $scope.tariff_active.peakHourStart.split(':');
-        let range1 = +hhmm1[0] * 60 + +hhmm1[1];
-        let hhmm2 = $scope.tariff_active.peakHourEnd.split(':');
-        let range2 = +hhmm2[0] * 60 + +hhmm2[1];
+        const { peakHourStart: pS, peakHourEnd: pE } = $scope.tariff_active;
+        // let hhmm1 = $scope.tariff_active.peakHourStart.split(':');
+        // let range1 = +hhmm1[0] * 60 + +hhmm1[1];
+        // let hhmm2 = $scope.tariff_active.peakHourEnd.split(':');
+        // let range2 = +hhmm2[0] * 60 + +hhmm2[1];
 
-        console.log({ range1, range2, now });
+        // console.log({ range1, range2, now });
 
-        $scope.tariff_active.rateActive =
-          now >= range1 && now <= range2
-            ? $scope.tariff_active.peakRate
-            : $scope.tariff_active.normalRate;
+        $scope.tariff_active.rateActive = calcTariff(pS, pE, now) // now >= range1 && now <= range2
+          ? $scope.tariff_active.peakRate
+          : $scope.tariff_active.normalRate;
 
         $scope.tariff_active.distance = document.querySelector(
           '#distance'
@@ -360,6 +368,8 @@ angular
       });
     };
 
+    $scope.scheduleRide = function() {};
+
     $scope.book_confirm = function() {
       if (!$scope.driver_data) {
         M.toast({ html: 'No Cabs', displayLength: 1000 });
@@ -397,5 +407,11 @@ angular
       $scope.ride_info = data;
       $scope.$apply();
       openModal();
+    });
+
+    socket.on('ride reject', function(data) {
+      console.log(data);
+      preloader.style.display = 'none';
+      M.toast({ html: 'Driver cancelled your booking!', displayLength: 5000 });
     });
   });

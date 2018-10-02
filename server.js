@@ -55,6 +55,12 @@ io.on('connection', function(socket) {
     });
   });
 
+  socket.on('ride reject', function(data) {
+    socket.broadcast.emit('ride reject', {
+      ride: data.ride
+    });
+  });
+
   socket.on('disconnect', function(data) {
     console.log('no user');
     socket.broadcast.emit('no driver', { stat: data.stat });
