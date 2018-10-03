@@ -42,7 +42,7 @@
     <div class="row">
       <div class="input-field col s8">
         <i class="material-icons prefix">local_taxi</i>
-        <select>
+        <select id="cabs">
           <option value="" disabled selected>Choose Cab Type</option>
           <option value="Micro">Micro</option>
           <option value="Mini">Mini</option>
@@ -51,8 +51,17 @@
         </select>
         <!-- <label for="driverCab">Choose Cab Type</label> -->
       </div>
-      <div class="col s4">
-        <p class="flow-text" style="color:white; text-align: center; font-size: 1.5rem; padding: 0 2rem; margin-top: 17px;"></p>
+      <div class="col s4" ng-class="{'input-field': schedule == true}">
+        <p ng-show="!schedule" class="flow-text" style="color:white; text-align: center; font-size: 1.5rem; padding: 0 2rem; margin-top: 17px;"></p>
+        <div ng-show="schedule">
+          <select id="later">
+            <option value="" disabled selected>Choose time</option>
+            <option value="1">In 1 hour</option>
+            <option value="2">In 2 hours</option>
+            <option value="3">In 3 hours</option>
+            <option value="4">In 4 hours</option>
+          </select>
+        </div>
       </div>
     </div>
     <div class="row" style="margin-bottom: 60px;">

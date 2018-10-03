@@ -10,6 +10,7 @@ angular
     $cookies
   ) {
     $scope.proceed = false;
+    $scope.schedule = false;
     $scope.driver_data = null;
     $scope.tariff_active = null;
 
@@ -28,7 +29,8 @@ angular
     const book_modal_instance = M.Modal.getInstance(book_modal);
     const driver_info_instance = M.Modal.getInstance(driver_info);
     const cab_options = document.querySelectorAll('option');
-    const cab_select = document.querySelector('#book-modal select');
+    const cab_select = document.querySelector('#cabs');
+    const time_later = document.querySelector('#later');
     const cab_check = document.querySelector('#book-modal div p');
     const taps = document.querySelector('.tap-target');
     const tap_init = M.TapTarget.init(taps);
@@ -293,25 +295,22 @@ angular
       console.log({ range0, time, range1 });
       return time >= range0 && time <= range1;
     };
-    const showfare = cabtype => {
+
+    const showfare = (cabtype, later) => {
       $scope.tariff_data.forEach(tariff => {
         tariff.cabType == cabtype ? ($scope.tariff_active = tariff) : false;
       });
       console.log($scope.tariff_active);
       let hours = new Date().getHours();
       let minutes = new Date().getMinutes();
-      let now = hours * 60 + minutes;
+      let now = later
+        ? hours * 60 + minutes + +later * 60
+        : hours * 60 + minutes;
 
       if ($scope.tariff_active) {
         const { peakHourStart: pS, peakHourEnd: pE } = $scope.tariff_active;
-        // let hhmm1 = $scope.tariff_active.peakHourStart.split(':');
-        // let range1 = +hhmm1[0] * 60 + +hhmm1[1];
-        // let hhmm2 = $scope.tariff_active.peakHourEnd.split(':');
-        // let range2 = +hhmm2[0] * 60 + +hhmm2[1];
 
-        // console.log({ range1, range2, now });
-
-        $scope.tariff_active.rateActive = calcTariff(pS, pE, now) // now >= range1 && now <= range2
+        $scope.tariff_active.rateActive = calcTariff(pS, pE, now)
           ? $scope.tariff_active.peakRate
           : $scope.tariff_active.normalRate;
 
@@ -330,6 +329,7 @@ angular
     };
 
     $scope.check_cabs = function() {
+      $scope.schedule = false;
       if ($scope.driver_data) {
         $http
           .get(`/showride/${$scope.driver_data.email}`)
@@ -368,30 +368,44 @@ angular
       });
     };
 
-    $scope.scheduleRide = function() {};
+    $scope.scheduleRide = function() {
+      $scope.schedule = true;
+      book_modal_instance.open();
+      cab_select.addEventListener('change', function() {
+        showfare(cab_select.value);
+      });
+      time_later.addEventListener('change', function() {
+        showfare(cab_select.value, time_later.value);
+      });
+    };
 
     $scope.book_confirm = function() {
-      if (!$scope.driver_data) {
-        M.toast({ html: 'No Cabs', displayLength: 1000 });
-        book_modal_instance.close();
-        return;
-      }
-      if (cab_select.value == $scope.driver_data.cab) {
-        let pickup = document.querySelector('#pos-input').value;
-        let fare = $scope.tariff_active.totalFare;
-        let destination = $scope.tariff_active.destination;
-        socket.emit('book info', {
-          user,
-          pickup,
-          fare,
-          destination
-        });
-        book_modal_instance.close();
-        preloader.style.display = 'block';
-      } else if (cab_select.value == '') {
-        M.toast({ html: 'Select a Cab', displayLength: 1000 });
+      if (!$scope.schedule) {
+        if (!$scope.driver_data) {
+          M.toast({ html: 'No Cabs', displayLength: 1000 });
+          book_modal_instance.close();
+          return;
+        }
+        if (cab_select.value == $scope.driver_data.cab) {
+          let pickup = document.querySelector('#pos-input').value;
+          let fare = $scope.tariff_active.totalFare;
+          let destination = $scope.tariff_active.destination;
+          socket.emit('book info', {
+            user,
+            pickup,
+            fare,
+            destination
+          });
+          book_modal_instance.close();
+          preloader.style.display = 'block';
+        } else if (cab_select.value == '') {
+          M.toast({ html: 'Select a Cab', displayLength: 1000 });
+        } else {
+          M.toast({ html: 'Selected Cab Not Available', displayLength: 1000 });
+        }
       } else {
-        M.toast({ html: 'Selected Cab Not Available', displayLength: 1000 });
+        console.log('schedule reserved!');
+        book_modal_instance.close();
       }
     };
 
