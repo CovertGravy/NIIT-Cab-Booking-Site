@@ -28,7 +28,7 @@ angular
     });
     const book_modal_instance = M.Modal.getInstance(book_modal);
     const driver_info_instance = M.Modal.getInstance(driver_info);
-    const cab_options = document.querySelectorAll('option');
+    const cab_options = document.querySelectorAll('#cabs option');
     const cab_select = document.querySelector('#cabs');
     const time_later = document.querySelector('#later');
     const cab_check = document.querySelector('#book-modal div p');
@@ -404,8 +404,36 @@ angular
           M.toast({ html: 'Selected Cab Not Available', displayLength: 1000 });
         }
       } else {
-        console.log('schedule reserved!');
-        book_modal_instance.close();
+        const { contact, firstname: fn, lastname: ln } = user;
+        const pickup = document.querySelector('#pos-input').value;
+        const { totalFare: fare, destination } = $scope.tariff_active;
+        const d = new Date();
+        const hours = d.getHours() + +time_later.value;
+        const date = `${
+          hours >= 24 ? d.getDate() + 1 : d.getDate()
+        }-${d.getMonth() + 1}-${d.getFullYear()}`;
+        const time = `${
+          hours >= 24 ? '0' + hours - 24 : hours
+        }:${d.getMinutes()}`;
+        const ride = {
+          pickup,
+          fare,
+          destination,
+          date,
+          time,
+          customer: { email, contact, name: `${fn} ${ln}` },
+          driver: {
+            name: 'To be Allocated',
+            contact: 'Not Available',
+            email: 'Not Available'
+          }
+        };
+        $http.post('/addschedule', ride).then(response => {
+          console.log(response);
+          // $location.path('/profile');
+          console.log('schedule reserved!');
+          book_modal_instance.close();
+        });
       }
     };
 

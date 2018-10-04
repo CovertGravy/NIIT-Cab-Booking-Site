@@ -8,6 +8,7 @@ const tariff = require('../models/tariff');
 const Driver = require('../models/driver');
 const user = require('../models/user');
 const ride = require('../models/ride');
+const scheduled = require('../models/scheduledride');
 
 // #region tariff-api
 //////////////////
@@ -365,4 +366,54 @@ router.delete('/deleteride/:email', (req, res) => {
   );
 });
 // #endregion ride-api
+
+// #region scheduled-api
+//////////////////
+// ?Scheduled APIs //
+//////////////////
+router.post('/addschedule', (req, res) => {
+  let newSchedule = new scheduled(req.body);
+
+  newSchedule.save((err, doc) => {
+    if (err) {
+      throw err;
+    } else {
+      res.json({
+        success: true,
+        message: 'Record added!'
+      });
+    }
+  });
+});
+
+router.get('/showschedule', (req, res) => {
+  scheduled.find({}, (err, data) => {
+    if (err) {
+      throw err;
+    } else {
+      res.json(data);
+    }
+  });
+});
+
+router.put('/updateschedule/:id', (req, res) => {
+  scheduled.findOneAndUpdate(
+    {
+      _id: req.params.id
+    },
+    req.body,
+    (err, doc) => {
+      if (err) {
+        throw err;
+      } else {
+        res.json({
+          success: true,
+          message: 'Tariff updated successfully'
+        });
+      }
+    }
+  );
+});
+
+// #endregion scheduled-api
 module.exports = router;
