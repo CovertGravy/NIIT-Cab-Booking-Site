@@ -430,9 +430,10 @@ angular
         };
         $http.post('/addschedule', ride).then(response => {
           console.log(response);
-          // $location.path('/profile');
           console.log('schedule reserved!');
           book_modal_instance.close();
+          alert('Scheduled ride added!');
+          $location.path('/profile');
         });
       }
     };
