@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "eslint-config-google": "^0.9.1",
+    "nodemon": "^1.18.4",
     "reload": "^2.2.2"
   }
 }
